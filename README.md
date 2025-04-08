@@ -4,8 +4,17 @@ For a natural number $N$, let $t(N)$ be the largest number such that $N!$ can be
 where $c_0 := \frac{1}{e} \int_0^1 \left \lfloor \frac{1}{x} \right\rfloor \log \left( ex \left \lceil \frac{1}{ex} \right\rceil \right)\ dx = 0.3044\dots,$
 answering a question of [Erdős and Graham](https://www.erdosproblems.com/391).  
 
+Here is a graph of the integral defining $c_0$:
+
 ![The integral determining $c_0$.](LaTeX/original%20paper/integ.png)
 
+And here is a plot of $t(N)/N$ against some comparators for $N \leq 79$:
+
+![Plot of $t(N)$ and comparators for $N \leq 79$](LaTeX/original%20paper/plot.png)
+
+Here is an extension of that image to $80 \leq N \leq 599$:
+
+![Plot of $t(N)$ and comparators for $80 \leq N \leq 599$](LaTeX/original%20paper/upperbound.png)
 
 This repository records the efforts to verify the [Guy-Selfridge conjectures](https://zbmath.org/0918.11013) concerning the sequence $t(N)$:
 
@@ -19,7 +28,6 @@ Secondary goals are
 3.  Extend the values of $t(N)$ reported in the OEIS (which [currently go up to](https://oeis.org/A034258/b034258.txt))  $N \leq 79$.
 4.  Obtain more accurate values for $c_0$.
 
-![Plot of $t(N)$ and comparators for $N \leq 79$](LaTeX/original%20paper/plot.png)
 
 ## Current status
 
