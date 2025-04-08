@@ -43,6 +43,7 @@ Secondary goals are
 
 ## Additional links
 
+- [Instructions for contributors](CONTRIBUTING.md)
 - "[Decomposing a factorial into large factors](https://terrytao.wordpress.com/2025/03/26/decomposing-a-factorial-into-large-factors/)", blog post, Terence Tao, 26 March 2025.
 - [Decomposing a factorial into large factors](https://arxiv.org/abs/2503.20170), arXiv preprint v2, Terence Tao, 28 March 2025.
 - [OEIS A034256](https://oeis.org/A034258)
