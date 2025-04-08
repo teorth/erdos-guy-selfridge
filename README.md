@@ -1,10 +1,7 @@
-# erdos-guy-selfridge
+# Verifying the Guy-Selfridge conjecture
 
-For a natural number $N$, let $t(N)$ be the largest number such that $N!$ can be factored into $N$ integer factors, each of which is at least $t(N)$.  [It is known](https://arxiv.org/abs/2503.20170) that 
-
-$$ \frac{1}{e} - \frac{O(1)}{\log N} \leq \frac{t(N)}{N} \leq \frac{1}{e} - \frac{c_0+o(1)}{\log N}$$
-where
-$$c_0 := \frac{1}{e} \int_0^1 \left \lfloor \frac{1}{x} \right\rfloor \log \left( ex \left \lceil \frac{1}{ex} \right\rceil \right)\ dx = 0.3044\dots,$$
+For a natural number $N$, let $t(N)$ be the largest number such that $N!$ can be factored into $N$ integer factors, each of which is at least $t(N)$.  [It is known](https://arxiv.org/abs/2503.20170) that $\frac{1}{e} - \frac{O(1)}{\log N} \leq \frac{t(N)}{N} \leq \frac{1}{e} - \frac{c_0+o(1)}{\log N}$,
+where $c_0 := \frac{1}{e} \int_0^1 \left \lfloor \frac{1}{x} \right\rfloor \log \left( ex \left \lceil \frac{1}{ex} \right\rceil \right)\ dx = 0.3044\dots,$
 answering a question of [Erdős and Graham](https://www.erdosproblems.com/391).  
 
 ![The integral determining $c_0$.](LaTeX/original%20paper/integ.png)
@@ -29,6 +26,7 @@ Secondary goals are
 1. Conjecture 1 has been reduced to Conjecture 2.
 2. Conjecture 2 is known in the range $8 \times 10^4 \leq N \leq 10^9$, and for sufficiently large $N$.
 3. Some lower and upper bounds on $t(N)$ are known beyond $N=79$, but the OEIS table has not yet been extended.
+4. Non-rigorous numerics have shown that $c_0 \approx 0.3044$.
 
 ## Timeline
 
