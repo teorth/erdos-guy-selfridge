@@ -123,7 +123,7 @@
 
 \begin{document}
 
-\title{Notes on the Guy-Selfridge problem}
+\title{Notes on upper and lower bounding $t(N)$}
 
 \author{Terence Tao}
 \maketitle
@@ -132,12 +132,45 @@
 
 \section{Basics}
 
+$t(N)$ denotes the largest quantity such that $N!$ can be factored into $N$ factors, each of which is at most $t(N)$.
+
+$\nu_p(N)$ denotes the $p$-adic valuation of $N$, i.e., the exponent of the largest power of $p$ dividing $N$.
+
 We recall Legendre's formula
 \begin{equation}\label{legendre}
   \nu_p(N) = \sum_{j=1}^\infty \lfloor \frac{N}{p^j} \rfloor = \frac{N - s_p(N)}{p-1}.
 \end{equation}
 
-\section{Criteria for factorization}
+Asymptotically, it is known that
+$$ \frac{1}{e} - \frac{O(1)}{\log N} \leq \frac{t(N)}{N} \leq \frac{1}{e} - \frac{c_0+o(1)}{\log N}$$
+where
+  \begin{align*}
+    c_0 &\coloneqq \frac{1}{e} \int_0^1 \left \lfloor \frac{1}{x} \right\rfloor \log \left( ex \left \lceil \frac{1}{ex} \right\rceil \right)\ dx \\
+    &= \frac{1}{e} \int_1^\infty \lfloor y \rfloor \log \frac{\lceil y/e \rceil}{y/e}\ \frac{dy}{y^2} \\
+    &= 0.3044\dots
+  \end{align*}
+
+To bound the factorial, we have the explicit Stirling approximation \cite{robbins}
+\begin{equation}\label{stirling}
+  N \log N - N + \log \sqrt{2\pi N} + \frac{1}{12N+1} \leq \log N! \leq N \log N - N + \log \sqrt{2\pi N} + \frac{1}{12N},
+\end{equation}
+valid for all natural numbers $N$. 
+
+To estimate the prime counting function, we have the following good asymptotics up to a large height.
+
+  \begin{theorem}[Buthe's bounds]\cite{buthe}  For any $2 \leq x \leq 10^{19}$, we have
+  $$ \mathrm{li}(x) - \frac{\sqrt{x}}{\log x}(1.95 + \frac{3.9}{\log x} + \frac{19.5}{\log^2 x}) \leq \pi(x) < \mathrm{li}(x)$$
+  and
+  $$ \mathrm{li}(x) - \frac{\sqrt{x}}{\log x} \leq \pi^*(x) < \mathrm{li}(x) + \sqrt{x}{\log x}.$$
+  \end{theorem}
+  
+  For $x > 10^{19}$ we have the bounds of Dusart \cite{dusart}.  One such bound is
+  $$ |\psi(x) - x| \leq 59.18 \frac{x}{\log^4 x}.$$
+  
+  
+
+  
+\section{Criteria for lower bounding $t(N)$}
 
 Suppose we are trying to factorize $N!$ into factors of size at least $t$.  A candidate tuple $\vec b = (b_1,\dots,b_{N'})$ is said to be \emph{admissible} if $b_j \geq t$ for all $j=1,\dots,N'$.  The \emph{undershoot} $S^-_p(\vec b)$ and \emph{overshoot} of a tuple at a prime $p$ are defined by the formulae
 \begin{align*}
@@ -150,9 +183,9 @@ By the fundamental theorem of arithmetic, we obtain a perfect factorization $N! 
 \end{equation}
 This quantity is non-negative for admissible tuples.  Intuitively, the smaller the excess, the more efficient the candidate factorization.
 
-\begin{proposition}  Let $2 \leq t \leq N$.  Suppose one can find an admissible tuple $\vec b$ obeying the inequality
+\begin{proposition}  Let $2 \leq t \leq N$ with $t = N /e^{1+\delta}$.  Suppose one can find an admissible tuple $\vec b$ obeying the inequality
 \begin{equation}\label{main} 
-  E(\vec b) + \sum_p (S^-_p(\vec b) \log p + S^+_p(\vec b) \log 2) \leq \log N! - N \log t
+  E(\vec b) + \sum_p (S^-_p(\vec b) \log p + S^+_p(\vec b) \log 2) \leq \delta N
 \end{equation}
 as well as the side condition
 \begin{equation}\label{side}
@@ -161,9 +194,17 @@ as well as the side condition
 Then $t(N) \geq t$.
 \end{proposition}
 
+For the purposes of the Guy--Selfridge conjecture $t(N) \geq N/3$, we may take $\delta = \log \frac{3}{e} \approx 0.098$.  
+
+In \cite[Proposition 3.1]{tao} the slightly weaker criterion
+$$ 
+E(\vec b)  + \sum_p (S^-_p(\vec b) \log p + S^+_p(\vec b) \log 2) + |N'-N| \log N \leq \delta N$$
+was given in place of \eqref{main}, \eqref{side}, but this formulation seems slightly superior numerically (we no longer need to maintain direct control on $N'$).
 
 \begin{proof}  Since there is a non-zero undershoot at $p=2$, there is no overshoot at this prime. Suppose that we have an overshoot at an odd prime $p>2$, thus one of the $b_i$ has a factor of $p$. If we replace this factor of $p$ by the larger quantity $2^{\lceil \frac{\log p}{\log 2} \rceil}$, then $S^+_p(\vec b)$ goes down by one, $E(\vec b)$ goes up by at most $\log 2$, and both sides of \eqref{side} decrease by the same amount.  Thus neither \eqref{main} nor \eqref{side} can be destroyed by this process.  Iterating, we may assume without loss of generality that there are no overshoots, thus
- $$  W(\vec b) + \sum_p (\nu_p(N!) - \sum_{i=1}^{N'} \nu_p(b_i))\log p \leq \log N! - N \log t.$$
+ $$  W(\vec b) + \sum_p (\nu_p(N!) - \sum_{i=1}^{N'} \nu_p(b_i))\log p \leq \delta N.$$
+ From the Stirling approximation we have
+ $$ \delta N \leq \log N! - N \log t.$$
 From the fundamental theorem of arithmetic we have
 $$ \sum_p \nu_p(b_i) \log p = \log b_i; \quad \sum_p \nu_p(N!) \log p = \log N!.$$
 Using this and \eqref{excess}, we may rearrange the previous inequality as
@@ -175,20 +216,16 @@ In view of this proposition, we no longer need to keep direct track of the numbe
 
 
 
+\section{Criteria for upper bounding $t(N)$}
 
+We have the trivial upper bound $t(N) \leq (N!)^{1/N}$.  This can be improved to $t(N) \leq N/e$ for $N \neq 1,2,4$, answering a conjecture of Guy and Selfridge \cite{guy-selfridge}; see \cite{tao}.  This was derived from the following slightly stronger criterion, which asymptotically gives $\frac{t(N)}{N} \leq \frac{1}{e} - \frac{c_0+o(1)}{\log N}$:
 
-
-\section{Explicit estimates for primes}
-
-\begin{theorem}[Buthe's bounds]\cite{buthe}  For any $2 \leq x \leq 10^{19}$, we have
-$$ \mathrm{li}(x) - \frac{\sqrt{x}}{\log x}(1.95 + \frac{3.9}{\log x} + \frac{19.5}{\log^2 x}) \leq \pi(x) < \mathrm{li}(x)$$
-and
-$$ \mathrm{li}(x) - \frac{\sqrt{x}}{\log x} \leq \pi^*(x) < \mathrm{li}(x) + \sqrt{x}{\log x}.$$
-\end{theorem}
-
-For $x > 10^{19}$ we have the bounds of Dusart \cite{dusart}.  One such bound is
-$$ |\psi(x) - x| \leq 59.18 \frac{x}{\log^4 x}.$$
-
+\begin{lemma}[Upper bound criterion]\label{upper-crit}  \cite[Lemma 2.1]{tao} Suppose that $1 \leq t \leq N$ are such that
+  \begin{equation}\label{contra}
+     \sum_{p > \frac{t}{\lfloor\sqrt{t}\rfloor}} \left\lfloor \frac{N}{p} \right\rfloor \log \left( \frac{p}{t} \left\lceil \frac{t}{p} \right\rceil \right) > \log N! - N \log t
+  \end{equation}
+  Then $t(N) < t$.
+  \end{lemma}
 
 
 \begin{thebibliography}{10}
@@ -199,6 +236,14 @@ J. B\"uthe, \emph{Estimating $\pi(x)$ and related functions under partial RH ass
 \bibitem{dusart}
 P. Dusart, \emph{Explicit estimates of some functions over primes}, Ramanujan J. \textbf{45} (2018) 227--251.
 
+\bibitem{guy-selfridge}
+R. K. Guy, J. L. Selfridge, \emph{Factoring factorial $n$}, Amer. Math. Monthly \textbf{105} (1998) 766--767.
+
+\bibitem{robbins}
+H. Robbins, \emph{A Remark on Stirling's Formula}, Amer. Math. Monthly \textbf{62} (1955) 26--29.
+
+\bibitem{tao}
+T. Tao, \emph{Decomposing factorials into bounded factors}, preprint, 2025. \url{https://arxiv.org/abs/2503.20170}
 
 \end{thebibliography}
 

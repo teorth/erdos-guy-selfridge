@@ -1,13 +1,26 @@
 # erdos-guy-selfridge
 
-For a natural number $N$, let $t(N)$ be the largest number such that $N!$ can be factored into $N$ integer factors, each of which is at least $t(N)$.  It is known that $t(N) = N/e + o(N)$ as $N \to \infty$, answering a question of [Erdős and Graham](https://www.erdosproblems.com/391); see [this paper](https://arxiv.org/abs/2503.20170).  This repository records the efforts to verify the [Guy-Selfridge conjectures](https://zbmath.org/0918.11013):
+For a natural number $N$, let $t(N)$ be the largest number such that $N!$ can be factored into $N$ integer factors, each of which is at least $t(N)$.  [It is known](https://arxiv.org/abs/2503.20170) that 
+
+$$ \frac{1}{e} - \frac{O(1)}{\log N} \leq \frac{t(N)}{N} \leq \frac{1}{e} - \frac{c_0+o(1)}{\log N}$$
+where
+$$c_0 := \frac{1}{e} \int_0^1 \left \lfloor \frac{1}{x} \right\rfloor \log \left( ex \left \lceil \frac{1}{ex} \right\rceil \right)\ dx = 0.3044\dots,$$
+answering a question of [Erdős and Graham](https://www.erdosproblems.com/391).  
+
+![The integral determining $c_0$.](LaTeX/original%20paper/integ.png)
+
+
+This repository records the efforts to verify the [Guy-Selfridge conjectures](https://zbmath.org/0918.11013) concerning the sequence $t(N)$:
 
 1. $t(N) \geq \lfloor 2N/7 \rfloor$ for all $N \neq 56$.
 2. $t(N) \geq N/3$ for all $N \geq 3 \times 10^5$.  How small can the lower threshold $3 \times 10^5$ be?
 
-A secondary goal is
+(A further conjecture of Guy and Selfridge that $t(N) \leq N/e$ for $N \neq 1,2,4$ [has been solved](https://arxiv.org/abs/2503.20170).) 
 
-3.  Extend the values of $t(N)$ reported in the OEIS (which currently [go up to $N \leq 79$](https://oeis.org/A034258/b034258.txt)).
+Secondary goals are
+
+3.  Extend the values of $t(N)$ reported in the OEIS (which [currently go up to](https://oeis.org/A034258/b034258.txt))  $N \leq 79$.
+4.  Obtain more accurate values for $c_0$.
 
 ![Plot of $t(N)$ and comparators for $N \leq 79$](LaTeX/original%20paper/plot.png)
 
@@ -36,6 +49,6 @@ A secondary goal is
 - [Decomposing a factorial into large factors](https://arxiv.org/abs/2503.20170), arXiv preprint v2, Terence Tao, 28 March 2025.
 - [OEIS A034256](https://oeis.org/A034258)
 - [Lower bounds on $t(N)$ for $80 \leq N \leq 599$](https://terrytao.wordpress.com/wp-content/uploads/2025/03/tbounds.txt).
-- [Notes on criteria for lower bounding $t(N)$](https://github.com/teorth/erdos-guy-selfridge/blob/main/LaTeX/notes.pdf)
+- [Notes on criteria for bounding $t(N)$](https://github.com/teorth/erdos-guy-selfridge/blob/main/LaTeX/notes.pdf)
 
 
