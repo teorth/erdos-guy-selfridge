@@ -9,6 +9,8 @@ A secondary goal is
 
 3.  Extend the values of $t(N)$ reported in the OEIS (which currently [go up to $N \leq 79$](https://oeis.org/A034258/b034258.txt)).
 
+![Plot of $t(N)$ and comparators for $N \leq 79$](LaTeX/original%20paper/plot.png)
+
 ## Current status
 
 1. Conjecture 1 has been reduced to Conjecture 2.
