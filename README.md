@@ -28,9 +28,9 @@ Secondary goals are
 3. Some lower and upper bounds on $t(N)$ are known beyond $N=79$, but the OEIS table has not yet been extended.
 4. Non-rigorous numerics have shown that $c_0 \approx 0.3044$.
 
-## Timeline
+## Timeline 
 
-| Date | Author | Conjecture | $N$ | Method | Comments |
+| Date | Contributor | Goal | $N$ | Method | Comments |
 | --- | --- | --- | --- | --- | --- |
 | [27 Mar 2025](https://terrytao.wordpress.com/2025/03/26/decomposing-a-factorial-into-large-factors/#comment-687574) | Andrew Sutherland | 1 | $[1,10^5]$ | Greedy | N = [182](https://math.mit.edu/~drew/ES182.txt), [200](https://math.mit.edu/~drew/ES200.txt), [207](https://math.mit.edu/~drew/ES207.txt) treated separately
 |  [27 Mar 2025](https://terrytao.wordpress.com/2025/03/26/decomposing-a-factorial-into-large-factors/#comment-687574) | Andrew Sutherland | 2 | $[298344, 3 \times 10^5]$ | Greedy | Surplus of 372 at $N=3 \times 10^5$
