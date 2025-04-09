@@ -6,8 +6,18 @@ from sympy.ntheory import factorint
 # Code for generating Figure 2 in the original paper.
 
 
-values = [1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 8, 8, 8, 8, 8, 9, 9, 10, 10, 10, 10, 11, 11, 12, 12, 12, 12, 12, 12, 13, 13, 13, 14, 14, 15, 15, 15, 15, 15, 15, 16, 17, 17, 17, 17, 18, 18, 18, 19, 19, 19, 20, 20, 20, 20, 21, 21, 21, 21, 21, 22, 22, 22]
+inv_values = [1, 4, 9, 14, 16, 20, 24, 27, 32, 34, 38, 40, 46, 49, 51, 57, 58, 62, 65, 68, 72, 77, 80, 84, 87, 90, 93, 94, 100, 104, 108, 111, 114, 115, 118, 125, 125, 128, 130, 135, 140, 143, 145, 147, 153, 156, 159, 161, 168, 168, 172, 176, 176, 180, 187, 187, 192, 195, 200]
 
+values = [0 for _ in range(200)]
+
+for i in range(200):
+    t = 0
+    for j in inv_values:
+        if j <= i+1:
+            t += 1
+    values[i] = t
+
+print(values)
 
 
 def is_prime(n):
@@ -51,7 +61,7 @@ def plot1():
     base = [i+1 for i in range(len(values))]
     alt = [float(math.floor(2*(i+1)/7))/(i+1) for i in range(len(values))]
     comparison = [math.exp(-1) for _ in range(len(values))]
-    comparison2 = [math.factorial(i+1) ** (1/(i+1)) / (i+1) for i in range(len(values))]
+    comparison2 = [math.exp(logfac((i+1)) / (i+1)) / (i+1) for i in range(len(values))]
     third = [1/3 for _ in range(len(values))]
     conj = [math.exp(-1) - 0.3044 / math.log(max(i+1,2)) for i in range(len(values))]
     upper = [best_t(i+1, values[i])/(i+1) for i in range(len(values))]
@@ -67,7 +77,7 @@ def plot1():
     plt.title('$t(N)/N$')
     plt.xlabel('$N$')
     plt.ylim(0.2,0.5)
-    plt.xlim(1,80)
+    plt.xlim(1,200)
     plt.legend()
     plt.grid(True)
     plt.show()
