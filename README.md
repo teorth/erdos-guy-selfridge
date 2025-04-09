@@ -12,7 +12,11 @@ And here is a plot of $t(N)/N$ against some comparators for $N \leq 79$:
 
 ![Plot of $t(N)$ and comparators for $N \leq 79$](LaTeX/original%20paper/plot.png)
 
-Here is an extension of that image to $80 \leq N \leq 599$:
+Here is an extension of that image to $N \leq 200$:
+
+![Plot of $t(N)$ and comparators for $N \leq 200$](src/python/newplot_200.png)
+
+A view of $80 \leq N \leq 599$ (using a greedy lower bound for $t(N)$):
 
 ![Plot of $t(N)$ and comparators for $80 \leq N \leq 599$](LaTeX/original%20paper/upperbound.png)
 
