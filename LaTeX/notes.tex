@@ -138,7 +138,7 @@ $\nu_p(N)$ denotes the $p$-adic valuation of $N$, i.e., the exponent of the larg
 
 We recall Legendre's formula
 \begin{equation}\label{legendre}
-  \nu_p(N) = \sum_{j=1}^\infty \lfloor \frac{N}{p^j} \rfloor = \frac{N - s_p(N)}{p-1}.
+  \nu_p(N) = \sum_{j=1}^\infty \left\lfloor \frac{N}{p^j} \right\rfloor = \frac{N - s_p(N)}{p-1}.
 \end{equation}
 
 Asymptotically, it is known that
@@ -159,37 +159,47 @@ valid for all natural numbers $N$.
 To estimate the prime counting function, we have the following good asymptotics up to a large height.
 
   \begin{theorem}[Buthe's bounds]\cite{buthe}  For any $2 \leq x \leq 10^{19}$, we have
-  $$ \mathrm{li}(x) - \frac{\sqrt{x}}{\log x}(1.95 + \frac{3.9}{\log x} + \frac{19.5}{\log^2 x}) \leq \pi(x) < \mathrm{li}(x)$$
+  $$ \mathrm{li}(x) - \frac{\sqrt{x}}{\log x}\left(1.95 + \frac{3.9}{\log x} + \frac{19.5}{\log^2 x}\right) \leq \pi(x) < \mathrm{li}(x)$$
   and
-  $$ \mathrm{li}(x) - \frac{\sqrt{x}}{\log x} \leq \pi^*(x) < \mathrm{li}(x) + \sqrt{x}{\log x}.$$
+  $$ \mathrm{li}(x) - \frac{\sqrt{x}}{\log x} \leq \pi^*(x) < \mathrm{li}(x) + \frac{\sqrt{x}}{{\log x}}.$$
   \end{theorem}
   
   For $x > 10^{19}$ we have the bounds of Dusart \cite{dusart}.  One such bound is
   $$ |\psi(x) - x| \leq 59.18 \frac{x}{\log^4 x}.$$
   
-  
-
+  For $a_+,a_- \in [0,+\infty]$, we define the asymmetric norm $|x|_{a_+,a_-}$ of a real number $x$ by the formula
+  $$ |x|_{a_+,a_-} \coloneqq \max(a_+ x, -a_- x),$$
+thus this is $a_+ |x|$ when $x$ is positive and $a_- |x|$ when $x$ is negative.  This function is Lipschitz with constant $\max(a_+,a_-)$.
   
 \section{Criteria for lower bounding $t(N)$}
 
-Suppose we are trying to factorize $N!$ into factors of size at least $t$.  A candidate tuple $\vec b = (b_1,\dots,b_{N'})$ is said to be \emph{admissible} if $b_j \geq t$ for all $j=1,\dots,N'$.  The \emph{undershoot} $S^-_p(\vec b)$ and \emph{overshoot} of a tuple at a prime $p$ are defined by the formulae
-\begin{align*}
-   S^-_p(\vec b) &\coloneqq (\nu_p(N) - \sum_{i=1}^{N'} \nu_p(b_i))_+ \\
-   S^+_p(\vec b) &\coloneqq (\sum_{i=1}^{N'} \nu_p(b_i) - \nu_p(N!))_+.
-\end{align*}
-By the fundamental theorem of arithmetic, we obtain a perfect factorization $N! = b_1 \dots b_{N'}$ if the undershoots and overshoots all vanish.  The \emph{excess} $E(\vec b)$ is defined to be the quantity
+Suppose we are trying to factorize $N!$ into factors of size at least $t$.  A candidate tuple $\vec b = (b_1,\dots,b_{N'})$ is said to be \emph{admissible} if $b_j \geq t$ for all $j=1,\dots,N'$.  The \emph{$p$-saving} $S_p(\vec b)$ of the tuple is defined by the formula
+$$ S_p(\vec b) \coloneqq \nu_p(N) - \sum_{i=1}^{N'} \nu_p(b_i).$$
+A tuple is \emph{debt-free} if $S_p(\vec b) \geq 0$ for all $p$.
+
+From the fundamental theorem of arithmetic we have
+$$ \log b_i = \sum_p \nu_p(b_i) \log p$$
+and 
+$$ \log N! = \sum_p \nu_p(N!) \log p$$
+and hence we obtain the identity 
+\begin{equation}\label{ident}
+   \log N! - \sum_{i=1}^{N'} \log b_i = \sum_p S_p(\vec b) \log p.
+\end{equation}
+
+By the fundamental theorem of arithmetic, we obtain a perfect factorization $N! = b_1 \dots b_{N'}$ if all the $p$-savings vanish.  The \emph{excess} $E(\vec b)$ is defined to be the quantity
 \begin{equation}\label{excess} 
   E(\vec b) \coloneqq \sum_{i=1}^{N'} \log \frac{b_i}{t}.
 \end{equation}
-This quantity is non-negative for admissible tuples.  Intuitively, the smaller the excess, the more efficient the candidate factorization.
-
-\begin{proposition}  Let $2 \leq t \leq N$ with $t = N /e^{1+\delta}$.  Suppose one can find an admissible tuple $\vec b$ obeying the inequality
-\begin{equation}\label{main} 
-  E(\vec b) + \sum_p S^-_p(\vec b) \log p  \leq \delta N
+This quantity is non-negative for admissible tuples.  Intuitively, the smaller the excess, the more efficient the candidate factorization.  By combining \eqref{excess} with \eqref{ident} we obtain the identity
+\begin{equation}\label{excess-save}
+  E(\vec b) + \sum_p S_p(\vec b) \log p = \log N! - N' \log t.
 \end{equation}
-as well as the side condition
-\begin{equation}\label{side}
- S^+_p(\vec b) = 0 \forall p.
+
+We conclude
+
+\begin{proposition}  Let $2 \leq t \leq N$ with $t = N /e^{1+\delta}$.  Suppose one can find an admissible tuple $\vec b$ such that
+\begin{equation}\label{main} 
+  E(\vec b) + \sum_p |S_p(\vec b)|_{\log p,\infty}  \leq \delta N + \log \sqrt{2\pi N}.
 \end{equation}
 Then $t(N) \geq t$.
 \end{proposition}
@@ -198,27 +208,22 @@ For the purposes of the Guy--Selfridge conjecture $t(N) \geq N/3$, we may take $
 
 In \cite[Proposition 3.1]{tao} the variant criterion
 $$ 
-E(\vec b)  + \sum_p (S^-_p(\vec b) \log p + S^+_p(\vec b) \log 2) + |N'-N| \log N \leq \delta N$$
-was given in place of \eqref{main}, \eqref{side}, but this formulation seems slightly superior numerically (we no longer need to maintain direct control on $N'$).
+E(\vec b)  + \sum_p |S_p(\vec b)|_{\log p,\log 2} + |N'-N| \log N \leq \delta N$$
+was given in place of \eqref{main}, but the condition \eqref{main} seems slightly superior numerically (we no longer need to maintain direct control on $N'$).
 
-\begin{proof}  From the absence of overshoots, we can rewrite \eqref{main} as
-  $$  W(\vec b) + \sum_p (\nu_p(N!) - \sum_{i=1}^{N'} \nu_p(b_i))\log p \leq \delta N.$$
- From the Stirling approximation we have
- $$ \delta N \leq \log N! - N \log t.$$
-From the fundamental theorem of arithmetic we have
-$$ \sum_p \nu_p(b_i) \log p = \log b_i; \quad \sum_p \nu_p(N!) \log p = \log N!.$$
-Using this and \eqref{excess}, we may rearrange the previous inequality as
-$$ N \log t \leq N' \log t.$$
-If we then delete all but $N$ of the terms in the tuple $(b_1,\dots,b_{N'})$, and then distribute all undershoots amongst these surviving terms arbitrarily, we obtain a factorization $N! = a_1 \dots a_N$ with all $a_i \geq t$, so that $t(N) \geq t$ as required.
+\begin{proof}  From \eqref{main}, the tuple must be debt-free.  Applying \eqref{stirling}, we have
+$$ E(\vec b) + \sum_p S_p(\vec b) \log p < \log N! - N\log t,$$
+and hence by \eqref{excess-save} we have $N' \geq N$.
+If we then delete all but $N$ of the terms in the tuple $(b_1,\dots,b_{N'})$, and then distribute all $p$-savings amongst these surviving terms arbitrarily, we obtain a factorization $N! = a_1 \dots a_N$ with all $a_i \geq t$, so that $t(N) \geq t$ as required.
 \end{proof}
 
-In view of this proposition, we no longer need to keep direct track of the number of terms in the factorization; as long as we keep the excess small, and have not too much undershoot, particularly at large primes, while completely avoiding overshoot, we get a lower bound on $t(N)$. 
+In view of this proposition, we no longer need to keep direct track of the number of terms in the factorization; as long as we keep the excess small, and have not too much $p$-saving, particularly at large primes, while staying debt-free, we get a lower bound on $t(N)$. 
 
-For very large $N$, a promising strategy to improve the criterion is to initially allow for a large undershoot at primes $2$ and $3$, and correct them later with well chosen factors of the form $2^m 3^n$.  Here is a more precise formulation.
+For very large $N$, a promising strategy to improve the criterion is to initially allow for a large $2$-saving and $3$-saving, and then ``spend'' those available primes later on well chosen factors of the form $2^m 3^n$.  Here is a more precise formulation.
 
 \begin{proposition}[Second criterion]  Let $2 \leq t \leq N$ with $t = N /e^{1+\delta}$.  Suppose we can find pairs $(m_1,n_1)$, $(m_2,n_2)$ of natural numbers with
 \begin{equation}\label{atet}
-   t \leq 2^{m_i} 3^{n_i} \leq e^\eps t
+   t \leq 2^{m_i} 3^{n_i} \leq e^\eps t \leq N
 \end{equation}
 for $i=1,2$ and some $\eps>0$.  Suppose we also have an admissible tuple $\vec b$ obeying the following axioms:
 \begin{itemize}
@@ -227,62 +232,67 @@ for $i=1,2$ and some $\eps>0$.  Suppose we also have an admissible tuple $\vec b
   (S^-_2(\vec b), S^-_3(\vec b))
 \end{equation}
 in $\R^2$ is a non-negative linear combination of $(m_1,n_1)$ and $(m_2,n_2)$.
-  \item[(ii)] We have $S^+_p(\vec b) = 0$ for all primes $p > 3$.
-  \item[(iii)]  We have
+  \item[(ii)]  We have
   \begin{equation}\label{main-2}
     \begin{split} 
-&    E(\vec b) + \sum_{p>3} S^-_p(\vec b) \log p \\
-& \quad + 2(\log t + \eps) + \frac{\eps \log 12}{2} \frac{N}{\log t} \leq \delta N.
+&    E(\vec b) + \sum_{p>3} |S_p(\vec b)|_{\log p,\infty} \\
+& \quad + \frac{3}{2} \log N + \frac{\eps \log 12}{2} \frac{N}{\log t} \leq \delta N + \log \sqrt{2\pi}.
     \end{split}
   \end{equation}
 \end{itemize}
 Then $t(N) \geq t$.
 \end{proposition}
 
-In practice, the $2(\log t+\eps)$ term is negligible. The point here is that this version of the criterion largely frees up the need to track the undershoot at $2$ and $3$, other than to verify the (quite mild) condition (i).  The quantity $\eps$ can be easily bounded by $\log 2$ in most cases, but one expects (based on the irrationality of $\log 3/\log 2$) that one can do better than this; and this quantity can be bounded numerically quite easily even for rather large $N$.
+In practice, the $\frac{3}{2} \log N$ term is negligible. The point here is that this version of the criterion largely frees up the need to track the undershoot at $2$ and $3$, other than to verify the (quite mild) condition (i).  The quantity $\eps$ can be easily bounded by $\log 2$ in most cases, but one expects (based on the irrationality of $\log 3/\log 2$) that one can do better than this; and this quantity can be bounded numerically quite easily even for rather large $N$.
 
-\begin{proof}  By hypothesis, the vector \eqref{svec} can be written as $s_1 (m_1,n_1) + s_2 (m_2,n_2)$ for some positive reals $s_1,s_2$.  Splitting into integer and fractional parts, we can thus write \eqref{svec} as the sum of $\lfloor s_1 \rfloor$ copies of $(m_1,n_1)$, $\lfloor s_2 \rfloor$ copies of $(m_2,n_2)$, and a vector with coefficients at most $(m_1+m_2, n_1+n_2)$.  If we then add $s_1$ copies of $2^{m_1} 3^{n_1}$ and $s_2$ copies of  $2^{m_2} 3^{n_2}$ to the admissible tuple, then it remains admissible with no overshoots; but now $S^-_2(\vec b)$, $S^-_3(\vec b)$ are reduced to at most $m_1+m_2$, $n_1+n_2$ respectively.  Also, each $2^{m_i} 3^{n_i}$ contributes an excess of at most $\eps$, which in turn is at most $\frac{\eps}{\log t} \log 2^{m_i} 3^{n_i}$; hence the total additional excess produced hree is at most $\frac{\eps}{\log t} \log 2^{S^-_2(\vec b)} 3^{S^-_3(\vec b)}$.  From \eqref{legendre} we have $S^-_p(\vec b) \leq \frac{N}{p-1}$, hence the additional excess is at most
+\begin{proof}  By hypothesis, the vector \eqref{svec} can be written as $s_1 (m_1,n_1) + s_2 (m_2,n_2)$ for some positive reals $s_1,s_2$.  Splitting into integer and fractional parts, we can thus write \eqref{svec} as the sum of $\lfloor s_1 \rfloor$ copies of $(m_1,n_1)$, $\lfloor s_2 \rfloor$ copies of $(m_2,n_2)$, and a vector with coefficients at most $(m_1+m_2, n_1+n_2)$.  If we then add $s_1$ copies of $2^{m_1} 3^{n_1}$ and $s_2$ copies of  $2^{m_2} 3^{n_2}$ to the admissible tuple, then it remains admissible and debt-free; but now $S_2(\vec b)$, $S_3(\vec b)$ are reduced to at most $m_1+m_2$, $n_1+n_2$ respectively.  Also, each $2^{m_i} 3^{n_i}$ contributes an excess of at most $\eps$, which in turn is at most $\frac{\eps}{\log t} \log 2^{m_i} 3^{n_i}$; hence the total additional excess produced here is at most $\frac{\eps}{\log t} \log 2^{S_2(\vec b)} 3^{S_3(\vec b)}$.  From \eqref{legendre} we have $S_p(\vec b) \leq \frac{N}{p-1}$, hence the additional excess is at most
 $$ \frac{\eps}{\log t} \log 2^{N} 3^{N/2} \leq \frac{\eps \log 12}{2} \frac{N}{\log t}.$$
-The new value of $S^-_2(\vec b) \log 2 + S^-_3(\vec b) \log 3$
+The new value of $S_2(\vec b) \log 2 + S_3(\vec b) \log 3$
 is at most
 \begin{align*}
   (m_1+m_2) \log 2 + (n_1+n_2)\log 3 &= \log 2^{m_1} 3^{n_1} + \log 2^{m_2} 3^{n_2} \\
-  &\leq 2 \log(e^\eps t).
+  &\leq 2 \log N
+  &= \frac{3}{2} \log N + \log \sqrt{N}.
 \end{align*}
 From \eqref{main-2} we conclude that the new admissible tuple obeys \eqref{main}, and the claim now follows from the previous proposition.  
 \end{proof}
 
-We can also allow for some overshoot, as well as handle undershoots at small primes more efficiently.
+We can now allow for some debt at various primes $p$, as well as handle savings at small primes more efficiently.
 
-\begin{proposition}[Third criterion]  Let $2 \leq t \leq N$ with $t = N /e^{1+\delta}$, and let $3 \leq K < N$ be an additional parameter.  Suppose we can find pairs $(m_1,n_1)$, $(m_2,n_2)$ of natural numbers obeying \eqref{test}, and an admissible tuple $\vec b$ obeying the following axioms:
+\begin{proposition}[Third criterion]  Let $2 \leq t \leq N$ with $t = N /e^{1+\delta}$.  Suppose we can find pairs $(m_1,n_1)$, $(m_2,n_2)$ of natural numbers obeying \eqref{test}, and an admissible tuple $\vec b$ obeying the following axioms:
   \begin{itemize}
     \item[(i)]  The vector
   \begin{equation}\label{svec-2}
-    (S^-_2(\vec b)-u, S^-_3(\vec b))
+    (S_2(\vec b)-u, S_3(\vec b))
   \end{equation}
   in $\R^2$ is a non-negative linear combination of $(m_1,n_1)$ and $(m_2,n_2)$, whenever
-  $$ 0 \leq u \leq \sum_{p>3} S^+_p(\vec b) \lceil \frac{\log p}{\log 2} \rceil + \lceil \frac{\log t}{\log 2} \rceil + \frac{\lceil \log K/\log 2\rceil}{\log(t/K)} \sum_{3 < p \leq K} S^-_p(\vec b).$$
+  $$ 0 \leq u \leq \sum_{3 < p \leq \sqrt{t}} |S_p(\vec b)|_{\frac{2 \log p \lceil (\log t)/2\log 2 \rceil}{\log t}, \lceil \frac{\log p}{\log 2} \rceil} + \sum_{p>\sqrt{t}} |S_p(\vec b)|_{0,\lceil \frac{\log p}{\log 2} \rceil} + \left\lceil \frac{\log t}{\log 2} \right\rceil.$$
     \item[(ii)]  We have
     \begin{equation}\label{main-3}
       \begin{split} 
-  &    E(\vec b) + \sum_{p>K} S^-_p(\vec b) \log p + \sum_{p>3} S^+_p(\vec b) \log 2 \\
-  & \quad + \frac{\log 2}{\log t/K} \sum_{3 < p \leq K} S^-_p(\vec b) \\
-  & \quad + 2(\log t + \eps) + \log 2 + \frac{\eps \log 12}{2} \frac{N}{\log t} \leq \delta N.
+  &    E(\vec b) + \sum_{3 < p \leq \sqrt{t}} |S_p(\vec b)|_{\frac{2(\log p) \log 2}{\log t}, \log 2} + \sum_{p>\sqrt{t}} |S_p(\vec b)|_{\log p,\log 2} \\
+  & \quad + \frac{3}{2} \log N + \frac{\eps \log 12}{2} \frac{N}{\log t} \leq \delta N.
       \end{split}
     \end{equation}
   \end{itemize}
   Then $t(N) \geq t$.
   \end{proposition}
   
-The point here is that the ``cost'' of undershooting at primes $3 < p \leq K$ has been significantly reduced.
+The point here is that the ``cost'' of excessive savings at primes $3 < p \leq \sqrt{t}$ has been significantly reduced.  The condition (i) has become more complicated, but is easy to satisfy in practice.
 
-\begin{proof} Suppose we have an overshoot at some prime $p>3$.  Then one of the elements of the tuple $\vec b$ is divisible by $p$.  If we replace $p$ by $2^{\lceil \log p/\log 2 \rceil}$ in that element, then we keep the tuple admissible, increasing the excess by at most $\log 2$, while decreasing $S^-_p(\vec b)$ by at most $\lceil \log p/\log 2 \rceil$, and not affecting any other statistics relevant for the axioms.  Thus, by iterating this procedure, we may assume that no overshoots occur.
+\begin{proof} Suppose we have a $p$-debt $S_p(\vec b) < 0$ at some some prime $p>3$.  Then one of the elements of the tuple $\vec b$ is divisible by $p$.  If we replace $p$ by $2^{\lceil \log p/\log 2 \rceil}$ in that element, then we keep the tuple admissible, increasing the excess by at most $\log 2$, while decreasing $S_2(\vec b)$ by $\lceil \log p/\log 2 \rceil$, increasing $S_p(\vec b)$ by one (and thus decreasing $|S_p(\vec b)|_{0,\lceil \frac{\log p}{\log 2} \rceil}$ or $|S_p(\vec b)|_{0,\lceil \frac{\log p}{\log 2} \rceil}$ by $\lceil \frac{\log p}{\log 2} \rceil$), and not affecting any of the other $p$-savings.  Thus, by iterating this procedure, we may assume that the tuple is debt-free.
 
-  Now consider the undershoots coming from primes $3 < p \leq K$, which multiply to an expression $B$ with $\log B = \sum_{3 < p \leq K} S^-_p(\vec b) \log p$.  By the greedy algorithm, one can factor $B$ into $M$ expressions in the interval $(t/K,t]$, plus at most one further factor bounded by $t$, where $M$ obeys the bound
-  $$ (t/K)^M \leq B$$
-  and hence
-  $$ M \leq \frac{1}{\log(t/K)} \sum_{3 < p \leq K} S^-_p(\vec b)  \lceil \log p/\log 2 \rceil.$$
-For each of the $M$ factors, one can make it be larger than or equal to $t$ (but less than $2t$) by inserting at most $\lceil \log K/\log 2 \rceil$ factors of two; and the final factor can also be similarly adjusted using at most $\lceil \log t/\log 2\rceil$ factors of two.  Each such adjustment increases the excess by at most $\log 2$.  Performing all such reductions to remove all undershoots at primes $3 < p \leq K$, we obtain the current criterion from the previous one.
+  Now consider the positive $p$-savings $S_p(\vec b)>0$ coming from primes $3 < p \leq \sqrt{t}$, which multiply to an expression $B$ with 
+  $$\log B = \sum_{3 < p \leq \sqrt{t}} S_p(\vec b) \log p.$$
+  By the greedy algorithm, one can factor $B$ into $M$ expressions in the interval $(\sqrt{t},t]$, plus at most one further factor bounded by $t$, where $M$ obeys the bound
+  $$ \left(\sqrt{t}\right)^M \leq B$$
+  and hence on taking logarithms and rearranging
+  $$ M \leq \sum_{3 < p \leq \sqrt{t}} S_p(\vec b)  \frac{2 \log p}{\log t}.$$
+For each of the $M$ factors, one can make it be larger than or equal to $t$ (but less than $2t$) by inserting at most $\lceil (\log \sqrt{t})/\log 2 \rceil = \lceil (\log t) / 2 \log 2 \rceil$ factors of two; and the final factor can also be similarly adjusted using at most $\lceil \log t/\log 2\rceil$ factors of two.  Each such adjustment increases the excess by at most $\log 2$; since $\log 2 \leq \log \sqrt{2\pi}$, we can upper bound the net increase in the excess by
+$$ \sum_{3 < p \leq \sqrt{t}} |S_p(\vec b)|_{\frac{2 (\log p) \log 2}{\log t}, 0} + \log \sqrt{2\pi},$$
+while the $2$-saving $S_2(\vec b)$ has been reduced by at most
+$$ \sum_{3 < p \leq \sqrt{t}} |S_p(\vec b)|_{\frac{2 \log p \lceil (\log t)/2\log 2 \rceil}{\log t}, 0} + \left \lceil \frac{\log t}{\log 2} \right \rceil.$$
+Performing these adjustments to remove all $p$-savings at primes $3 < p \leq K$, we obtain the current criterion from the previous one.
 \end{proof}
   
   
