@@ -25,7 +25,7 @@ This repository records the efforts to verify the [Guy-Selfridge conjectures](ht
 
 Secondary goals are
 
-3.  Extend the values of $t(N)$ reported in the OEIS (which [currently go up to](https://oeis.org/A034258/b034258.txt))  $N \leq 79$.
+3.  Extend the values of $t(N)$ reported in the OEIS (which [are listed up to](https://oeis.org/A034258/b034258.txt))  $N \leq 79$, and which can be extended to $N \leq 200$ by inverting [OEIS A034259](https://oeis.org/A034259).
 4.  Obtain more accurate values for $c_0$.
 
 
@@ -33,7 +33,7 @@ Secondary goals are
 
 1. Conjecture 1 has been reduced to Conjecture 2.
 2. Conjecture 2 is known in the range $8 \times 10^4 \leq N \leq 10^9$, and for sufficiently large $N$.
-3. Some lower and upper bounds on $t(N)$ are known beyond $N=79$, but the OEIS table has not yet been extended.
+3. Some lower and upper bounds on $t(N)$ are known beyond $N=200$, but the OEIS table has not yet been extended.
 4. Non-rigorous numerics have shown that $c_0 \approx 0.3044$.
 
 ## Timeline 
@@ -55,7 +55,7 @@ Secondary goals are
 - "[Decomposing a factorial into large factors](https://terrytao.wordpress.com/2025/03/26/decomposing-a-factorial-into-large-factors/)", blog post, Terence Tao, 26 March 2025.
 - [Decomposing a factorial into large factors](https://arxiv.org/abs/2503.20170), arXiv preprint v2, Terence Tao, 28 March 2025.
 - [OEIS A034256](https://oeis.org/A034258)
-- [Lower bounds on $t(N)$ for $80 \leq N \leq 599$](https://terrytao.wordpress.com/wp-content/uploads/2025/03/tbounds.txt).
+- [Lower bounds on $t(N)$ for $80 \leq N \leq 599$](https://github.com/teorth/erdos-guy-selfridge/blob/main/Data/tbounds.txt).
 - [Notes on criteria for bounding $t(N)$](https://github.com/teorth/erdos-guy-selfridge/blob/main/LaTeX/notes.pdf)
 
 
