@@ -170,8 +170,53 @@ To estimate the prime counting function, we have the following good asymptotics 
   For $a_+,a_- \in [0,+\infty]$, we define the asymmetric norm $|x|_{a_+,a_-}$ of a real number $x$ by the formula
   $$ |x|_{a_+,a_-} \coloneqq \max(a_+ x, -a_- x),$$
 thus this is $a_+ |x|$ when $x$ is positive and $a_- |x|$ when $x$ is negative.  This function is Lipschitz with constant $\max(a_+,a_-)$.
-  
-\section{Criteria for lower bounding $t(N)$}
+
+\section{Powers of 2 and 3}
+
+For every natural number $B$, let $\delta_B$ denote the smallest gap in the set $\{ \{b \frac{\log 3}{\log 2}\}: 0 \leq b < B \} \cup \{1\}$, where $\{x\} \coloneqq x - \lfloor x\rfloor$ denotes the fractional part of $x$.  Clearly this quantity is nonincreasing in $B$. Numerical calculations show that
+$$
+ \delta_B \leq \frac{2.7}{B} \hbox{ for } 1 \leq B \leq 1900
+$$
+see \Cref{fig-log}. By the monotonicity of $\delta_B$, we thus have
+\begin{equation}\label{delta-b}
+ \delta_B \leq \frac{2.7}{\min(B, 1900)}
+\end{equation}
+for all $B \geq 1$.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\textwidth]{log3_log2_plot.png}
+  \caption{$B \delta_B$.}\label{fig-log}
+\end{figure}
+
+For larger values of $B$, $B \delta_B$ appears to be unbounded (presumably due to fluctuations in the continued fraction expansion of $\frac{\log 3}{\log 2}$).  However, one has the following decay bound.
+
+\begin{proposition}  One has $\delta_B \ll B^{-c}$ for some absolute constant $c>0$.
+\end{proposition}
+
+\begin{proof} Let $N > 1$ be a parameter to be chosen later.  By Dirichlet's theorem, one can write $\frac{\log 3}{\log 2} = \frac{a}{q} + \frac{\eps}{q}$ for some $1 \leq q \leq N$ with $a,q$ coprime, and some $|\eps| \leq 1/N$.  From Baker's theorem we also have the lower bound $|\eps| \gg q^{-O(1)}$.  Writing $(mq+r) \frac{\log 3}{\log 2} = \frac{ar}{q} + (m+\frac{r}{q})\eps \hbox{ mod } 1$ for $r=0,\dots,q-1$ and $0 \leq m \leq \frac{1}{q\eps}$, we see that the gaps between these numbers on the unit circle do not exceed $O(1/N)$.  Since all of the $mq+r$ are of the size $O(N^{O(1)})$, we conclude that $\delta_B \ll 1/N$ for some $B = O(N^{O(1)})$, giving the claim.
+\end{proof}
+
+We can use these quantities to efficiently approximate a given number by a number of the form $2^m 3^n$.
+
+\begin{lemma}  Let $t \geq 1$.  Then there exist natural numbers $n,m$ such that
+  $$ t \leq 2^n 3^m \leq \exp( \delta_{\lceil \log t/\log 3 \rceil} \log 2 ) t.$$
+In particular, if $N \leq 3^{1900} \approx 10^{906.5}$, one has
+$$ t \leq 2^n 3^m \leq \exp( (2.7 \log 3 \log 2) / \log t ) t \leq \exp(2.06/\log t) t,$$
+while for $t > 3^{1900}$, one has
+$$ t \leq 2^n 3^m \leq t \exp( \frac{2.7 \log 2}{1900} )
+\leq  \exp( 1/1000 ) t$$
+and asymptotically one has
+$$ t \leq 2^n 3^m \leq  \exp( O(\log^{-c} t) ) t$$
+for some absolute constant $c>0$.
+\end{lemma}
+
+\begin{proof}  Set $B \coloneqq \lceil \log s/\log 3 \rceil$.  By definition of $\delta_B$, one can find $0 \leq m \leq B-1$ and an integer $n$ such that 
+$$ \frac{\log s}{\log 2} \leq n + m \frac{\log 3}{\log 2} \leq \frac{\log s}{\log 2} + \delta_B.$$
+Since $m \leq \log s/\log 3$, we see that $n$ must be non-negative.  Multiplying by $\log 2$ and exponentiating, we obtain the claim.
+\end{proof}
+
+\section{Criteria for lower bounding \texorpdfstring{$t(N)$}{t(N)}}
 
 Suppose we are trying to factorize $N!$ into factors of size at least $t$.  A candidate tuple $\vec b = (b_1,\dots,b_{N'})$ is said to be \emph{admissible} if $b_j \geq t$ for all $j=1,\dots,N'$.  The \emph{$p$-saving} $S_p(\vec b)$ of the tuple is defined by the formula
 $$ S_p(\vec b) \coloneqq \nu_p(N) - \sum_{i=1}^{N'} \nu_p(b_i).$$
@@ -296,7 +341,7 @@ Performing these adjustments to remove all $p$-savings at primes $3 < p \leq K$,
 \end{proof}
   
   
-\section{Criteria for upper bounding $t(N)$}
+\section{Criteria for upper bounding \texorpdfstring{$t(N)$}{t(N)}}
 
 We have the trivial upper bound $t(N) \leq (N!)^{1/N}$.  This can be improved to $t(N) \leq N/e$ for $N \neq 1,2,4$, answering a conjecture of Guy and Selfridge \cite{guy-selfridge}; see \cite{tao}.  This was derived from the following slightly stronger criterion, which asymptotically gives $\frac{t(N)}{N} \leq \frac{1}{e} - \frac{c_0+o(1)}{\log N}$:
 

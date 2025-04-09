@@ -30,10 +30,11 @@ gaps = [N * largest_fractional_gap(N) for N in base]
 print(gaps)
 
 plt.figure(figsize=(8, 6))
-plt.plot(base, gaps, label='largest gap * N' )
-plt.title('Largest fractional gap of $N$ multiples of $\\log 3/\\log 2$')
+plt.plot(base, gaps, label='$B \\delta_B$' )
+plt.title('$B \\delta_B$ for $1 \\leq B \\leq 1900$')
 plt.xlabel('$N$')
 plt.legend()
+plt.ylim(1,2.7)
 plt.grid(True)
 plt.show()
 
