@@ -132,13 +132,42 @@
 
 \section{Basics}
 
-$t(N)$ denotes the largest quantity such that $N!$ can be factored into $N$ factors, each of which is at most $t(N)$.
+Let $\vec b = (b_1,\dots,b_{N'})$ be a tuple of natural numbers.  The quantity $N'$ will be called the \emph{length} of a tuple and denoted $\ell(\vec b)$.  The \emph{product} $\prod \vec b$ of the tuple is defined by $\prod \vec b \coloneqq b_1 \dots b_{N'}$.  The tuple $\vec b$ is a \emph{factorization} of a natural number $M$ if $\vec b = M$, and a \emph{subfactorization} if $\vec b | M$.
 
-$\nu_p(N)$ denotes the $p$-adic valuation of $N$, i.e., the exponent of the largest power of $p$ dividing $N$.
+We use $\nu_p(a/b) = \nu_p(a)-\nu_p(b)$ to denote the $p$-adic valuation of a positive natural number $a/b$, that is to say the number of times $p$ divides the numerator $a$, minus the number of times $p$ divides the denominator $b$.  By the fundamental theorem of arithmetic, we see that a tuple $\vec b$ is a factorization of $M$ if and only if
+$$ \nu_p( M / \prod \vec b ) = 0$$
+for all primes $p$, and a subfactorization if and only if
+$$ \nu_p( M / \prod \vec b ) \geq 0$$
+for all primes $p$.  We refer to $\nu_p( M / \vec b )$ as the \emph{$p$-surplus} of $\vec b$ (as an attempted factorization) of $M$ at prime $p$, and $-\nu_p(M/\prod\vec b) = \nu_p(\prod\vec b/M)$ as the \emph{$p$-deficit}.  Thus a subfactorization (resp. factorization) occurs when all the $p$-surpluses are non-negative (resp. zero).
+
+If one applies a logarithm to the fundamental theorem of arithmetic, one obtains the identity
+\begin{equation}\label{ftoa}
+  \sum_p \nu_p(r) \log p = \log r
+\end{equation}
+for any positive rational $r$.
+
+A tuple $\vec b = (b_1,\dots,b_{N'})$ is said to be \emph{$t$-admissible} for some $t>0$ if $b_i \geq t$ for all $i=1,\dots,N'$.  We define $t(N)$ denotes the largest quantity such that there exists a $t(N)$-admissible factorization of $N!$ of length $N$.  Clearly, $t(N)$ is also the largest quantity such that there exists a $t(N)$-admissible subfactorization of $N!$ of length at least $N$, since when starting from such a subfactorization, we may delete elements and then distribute any $p$-surpluses arbitrarily to create a factorization of length exactly $N$.
+
+A good measure of the efficiency of a $t$-admissible factorization (or subfactorization) $\vec b$ is the \emph{$t$-excess}
+$$ E_t(\vec b) \coloneqq \sum_{i=1}^{N'} \log \frac{b_i}{t}
+= \log \prod \vec b - \ell(\vec b) \log t.$$
+This is clearly non-negative when $\vec b$ is $t$-admissible.
+Combining this with \eqref{ftoa}, we obtain the basic \emph{balance identity}
+\begin{equation}\label{excess-identity}
+E_t(\vec b) + \sum_p \nu_p(N!/\prod\vec b) \log p = \log N! - \ell(b) \log t.
+\end{equation}
+That is to say, the gap between $\log N!$ and $\ell(b) \log t$ must be somehow distributed between the $t$-excess $E_t(\vec b)$ and the $p$-surpluses $\nu_p(N!/\prod\vec b)$.  In particular, we have the following equivalent definition of $t(N)$:
+
+\begin{lemma}[Equivalent form of $t(N)$]\label{balance} $t(N)$ is the supremum of all $t$ for which there exists a $t$-admissible subfactorization $\vec b$ of $N!$ with
+$$  E_t(\vec b) + \sum_p \nu_p(N!/\vec b) \log p \leq \log N! - N \log t.$$
+\end{lemma}
+
+The advantage of this formulation is that one no longer needs to directly track the length $\ell(\vec b)$ of the $t$-admissible subfactorization $\vec b$.  The formulation  highlights the need to locate subfactorizations in which both the $t$-excess and the $p$-surpluses are kept as low as possible.
+
 
 We recall Legendre's formula
 \begin{equation}\label{legendre}
-  \nu_p(N) = \sum_{j=1}^\infty \left\lfloor \frac{N}{p^j} \right\rfloor = \frac{N - s_p(N)}{p-1}.
+  \nu_p(N!) = \sum_{j=1}^\infty \left\lfloor \frac{N}{p^j} \right\rfloor = \frac{N - s_p(N)}{p-1}.
 \end{equation}
 
 Asymptotically, it is known that
@@ -166,181 +195,140 @@ To estimate the prime counting function, we have the following good asymptotics 
   
   For $x > 10^{19}$ we have the bounds of Dusart \cite{dusart}.  One such bound is
   $$ |\psi(x) - x| \leq 59.18 \frac{x}{\log^4 x}.$$
-  
-  For $a_+,a_- \in [0,+\infty]$, we define the asymmetric norm $|x|_{a_+,a_-}$ of a real number $x$ by the formula
-  $$ |x|_{a_+,a_-} \coloneqq \max(a_+ x, -a_- x),$$
-thus this is $a_+ |x|$ when $x$ is positive and $a_- |x|$ when $x$ is negative.  This function is Lipschitz with constant $\max(a_+,a_-)$.
 
 \section{Powers of 2 and 3}
 
-For every natural number $B$, let $\delta_B$ denote the smallest gap in the set $\{ \{b \frac{\log 3}{\log 2}\}: 0 \leq b < B \} \cup \{1\}$, where $\{x\} \coloneqq x - \lfloor x\rfloor$ denotes the fractional part of $x$.  Clearly this quantity is nonincreasing in $B$. Numerical calculations show that
-$$
- \delta_B \leq \frac{2.7}{B} \hbox{ for } 1 \leq B \leq 1900
-$$
-see \Cref{fig-log}. By the monotonicity of $\delta_B$, we thus have
-\begin{equation}\label{delta-b}
- \delta_B \leq \frac{2.7}{\min(B, 1900)}
-\end{equation}
-for all $B \geq 1$.
+For any $t \geq 1$, there exists $n$ such that
+$$ t \leq 2^n < 2t;$$
+indeed one can take $n = \lfloor \log t / \log 2 \rfloor$.  If one also admits powers of two, one can do better.  For instance: 
 
-\begin{figure}
-  \centering
-  \includegraphics[width=0.8\textwidth]{log3_log2_plot.png}
-  \caption{$B \delta_B$.}\label{fig-log}
-\end{figure}
+\begin{lemma}\label{lemcount-0}  For any (real) $t \geq 40.5$, there exist natural numbers $n,m$ such that
+  $$ t \leq 2^n 3^m \leq \frac{32}{27} t.$$
+\end{lemma}
 
-For larger values of $B$, $B \delta_B$ appears to be unbounded (presumably due to fluctuations in the continued fraction expansion of $\frac{\log 3}{\log 2}$).  However, one has the following decay bound.
+For comparison, we have $\log \frac{32}{27} = 0.16989\dots$, representing about a four-fold improvement over $\log 2 = 0.69314\dots$.
 
-\begin{proposition}  One has $\delta_B \ll B^{-c}$ for some absolute constant $c>0$.
-\end{proposition}
-
-\begin{proof} Let $N > 1$ be a parameter to be chosen later.  By Dirichlet's theorem, one can write $\frac{\log 3}{\log 2} = \frac{a}{q} + \frac{\eps}{q}$ for some $1 \leq q \leq N$ with $a,q$ coprime, and some $|\eps| \leq 1/N$.  From Baker's theorem we also have the lower bound $|\eps| \gg q^{-O(1)}$.  Writing $(mq+r) \frac{\log 3}{\log 2} = \frac{ar}{q} + (m+\frac{r}{q})\eps \hbox{ mod } 1$ for $r=0,\dots,q-1$ and $0 \leq m \leq \frac{1}{q\eps}$, we see that the gaps between these numbers on the unit circle do not exceed $O(1/N)$.  Since all of the $mq+r$ are of the size $O(N^{O(1)})$, we conclude that $\delta_B \ll 1/N$ for some $B = O(N^{O(1)})$, giving the claim.
+\begin{proof}  If $t \leq 48 = 2^4 \times 3 = \frac{32}{27} \times 40.5$ then we can take $n=4, m=1$, so assume $t > 2^4 \times 3$.  Let $2^n 3^m$ be the smallest number of this form that is at least $t$, then we must have $n \geq 5$ or $m \geq 2$ (or both).  Thus at least one of $\frac{3^3}{2^5} 2^n 3^m$ and $\frac{2^3}{3^2} 2^n 3^m$ is an integer, and is thus at most $t$ by construction.  Hence either $2^n 3^m \leq \frac{2^5}{3^3} t$ or $2^n 3^m \leq \frac{3^2}{2^3} t$.  Since $\frac{3^2}{2^3} \leq \frac{2^5}{3^3} = \frac{32}{27}$, the claim follows.
 \end{proof}
 
-We can use these quantities to efficiently approximate a given number by a number of the form $2^m 3^n$.
 
-\begin{lemma}  Let $t \geq 1$.  Then there exist natural numbers $n,m$ such that
-  $$ t \leq 2^n 3^m \leq \exp( \delta_{\lceil \log t/\log 3 \rceil} \log 2 ) t.$$
-In particular, if $N \leq 3^{1900} \approx 10^{906.5}$, one has
-$$ t \leq 2^n 3^m \leq \exp( (2.7 \log 3 \log 2) / \log t ) t \leq \exp(2.06/\log t) t,$$
-while for $t > 3^{1900}$, one has
-$$ t \leq 2^n 3^m \leq t \exp( \frac{2.7 \log 2}{1900} )
-\leq  \exp( 1/1000 ) t$$
-and asymptotically one has
-$$ t \leq 2^n 3^m \leq  \exp( O(\log^{-c} t) ) t$$
+Asymptotically, we can do even better:
+
+\begin{lemma}[Baker bound]\label{baker} For $t \geq 2$, we can find natural numbers $n,m$ such that
+  $$ t \leq 2^n 3^m \leq \exp(O(\log^{-c} t)) t$$
 for some absolute constant $c>0$.
 \end{lemma}
 
-\begin{proof}  Set $B \coloneqq \lceil \log s/\log 3 \rceil$.  By definition of $\delta_B$, one can find $0 \leq m \leq B-1$ and an integer $n$ such that 
-$$ \frac{\log s}{\log 2} \leq n + m \frac{\log 3}{\log 2} \leq \frac{\log s}{\log 2} + \delta_B.$$
-Since $m \leq \log s/\log 3$, we see that $n$ must be non-negative.  Multiplying by $\log 2$ and exponentiating, we obtain the claim.
+\begin{proof}  From the classical theory of continued fractions, we can find rational approximants
+\begin{equation}\label{abn}
+ \frac{p_{2j}}{q_{2j}} \leq \frac{\log 3}{\log 2} \leq \frac{p_{2j+1}}{q_{2j+1}}
+\end{equation}
+to the irrational number $\log 3/\log 2$, where the convergents $p_j/q_j$ obey the recursions
+$$ p_j = b_j p_{j-1} + p_{j-2}; \quad q_j = b_j q_{j-1} + q_{j-2}$$
+with $A_{-1} = 1, B_{-1}=0, A_0 = b_0, B_0=1$, and $[b_0;b_1,b_2,\dots] = [1;1,1,2,\dots]$ is the continued fraction expansion of $\frac{\log 3}{\log 2}$.  Furthermore, $p_{2j+1}q_{2j} - p_{2j} q_{2j+1} = 1$, and hence
+\begin{equation}\label{abn-2} 
+  \frac{\log 3}{\log 2} - \frac{p_{2j}}{q_{2j}} = \frac{1}{q_{2j} q_{2j+1}}.
+\end{equation}
+By Baker's theorem, $\frac{\log 3}{\log 2}$ is a Diophantine number, giving a bound of the form
+\begin{equation}\label{bj1}
+   q_{2j+1} \ll q_{2j}^{O(1)}
+\end{equation}
+and a similar argument gives
+\begin{equation}\label{bj2}
+ q_{2j+2} \ll q_{2j+1}^{O(1)}.
+\end{equation}
+We can rewrite \eqref{abn} as
+$$ 1 \leq \frac{3^{q_{2j}}}{2^{p_{2j}}}, \frac{2^{p_{2j+1}}}{3^{q_{2j+1}}}.$$
+By repeating the proof of \Cref{lemcount-0}, we see that if
+\begin{equation}\label{atb}
+   t > 2^{p_{2j+1}-1} 3^{q_{2j}-1},
+\end{equation}
+then the first expression of the form $2^n 3^m$ that is greater than or equal to $t$ obeys the bound
+$$ t \leq 2^n 3^m \leq t \max\left( \frac{3^{q_{2j}}}{2^{p_{2j}}}, \frac{2^{p_{2j+1}}}{3^{q_{2j+1}}} \right).$$
+From \eqref{abn},  \eqref{abn-2} one can bound
+$$ \max\left( \frac{3^{q_{2j}}}{2^{p_{2j}}}, \frac{2^{p_{2j+1}}}{3^{q_{2j+1}}} \right) \leq \exp\left( O\left( \frac{1}{q_{2j}}\right)\right).$$
+If one then sets $j$ to be the largest natural number for which \eqref{atb} holds, the claim then follows from \eqref{bj1}, \eqref{bj2}.
 \end{proof}
+
+
+We can now obtain efficient $t$-admissible subfactorizations of $2^n 3^m$ when $n,m$ are somewhat comparable.
+
+\begin{lemma}  Set $L \coloneqq 40.5$ and $\kappa \coloneqq \log \frac{32}{27}$, or else $L \geq 2$ and $\kappa = c \log^{-c} L$ for a sufficiently small constant $c>0$.  Let $t > 3L$ and $n,m$ be positive integers obeying the conditions
+\begin{equation}\label{B-bound}
+\frac{\log(3L)+\kappa}{\log t - \log(3L)} \leq \frac{n \log 2}{m \log 3} \leq \frac{\log t - \log(2L)}{\log(2L)+\kappa}.
+\end{equation}
+Then one can find a $t$-admissible subfactorization $\vec b$ of $2^n 3^m$ such that
+\begin{equation}\label{excess-bound} 
+  E_t(\vec b) \leq \frac{\kappa}{\log t} (n \log 2 + m \log 3)
+\end{equation}
+and
+\begin{equation}\label{surplus-bound} 
+  |\nu_2(2^n 3^m/\vec b)|_{\log 2,\infty} + |\nu_3(2^n 3^m/\vec b)|_{\log 3,\infty}  \leq 2(\log t + \kappa).
+\end{equation}
+\end{lemma}
+
+\begin{proof}  Let $2^{n_0}, 3^{m_0}$ be the largest powers of $2$ and $3$ less than $t/L$ respectively.  By \Cref{lemcount-0} or \Cref{baker}, we can find natural numbers $n_1,m_1,n_2,m_2$ such that
+\begin{equation}\label{ab} 
+  \frac{t}{2^{n_0}} \leq 2^{n_1} 3^{m_1} \leq e^{\kappa} \frac{t}{2^{n_0}}
+\end{equation}
+and
+\begin{equation}\label{ab-2}
+ \frac{t}{3^{m_0}} \leq 2^{n_2} 3^{m_2} \leq e^{\kappa} \frac{t}{3^{m_0}},
+\end{equation}
+or equivalently
+\begin{equation}\label{ab-equiv} 
+  t \leq 2^{n_0+n_1} 3^{m_1}, 2^{n_2} 3^{m_0+m_2} \leq e^{\kappa} t.
+\end{equation}
+We can bound
+\begin{align*}
+  \frac{n_0 + n_1}{m_1} &\geq \frac{n_0}{\log (e^{\kappa} \frac{t}{2^{n_0}}) / \log 3} \\
+  &\geq \frac{(\log t - \log(2L)) / \log 2}{ (\log(3L)+\kappa) / \log 3 }
+\end{align*}
+(with the convention that this bound is vacuously true for $m_1=0$) and similarly
+\begin{align*}
+  \frac{n_2}{m_0+m_2} &\leq \frac{\log(e^\kappa \frac{t}{3^{m_0}}) / \log 2}{m_0} \\
+  &\leq \frac{(\log(2L)+\kappa)/\log 2}{(\log t-\log(3L))/\log 3}
+\end{align*}
+and hence by \eqref{B-bound}
+\begin{equation}\label{m-wedge} \frac{n_2}{m_0+m_2} \leq \frac{n}{m} \leq \frac{n_0+n_1}{m_1}.
+\end{equation}
+Thus we can write $(n,m)$ as a non-negative linear combination
+$$ (n,m) = \alpha_1 (n_0+n_1,m_1) + \alpha_2 (n_2,m_0+m_2)$$
+for some real $\alpha_1, \alpha_2 \geq 0$. We now take our subfactorization $\vec b$ to consist of $\lfloor \alpha_1$ copies of $2^{n_0+n_1} 3^{m_1}$ and $\lfloor \alpha_2 \rfloor$ copies of $2^{n_2} 3^{m_0+m_2}$.  By \eqref{ab-equiv}, each term $2^{n'} 3^{m'}$ here is admissible and contributes an excess of at most $\kappa$, which is in turn bounded by $\frac{\kappa}{\log t} (n' \log 2 + m' \log 3)$.  Adding these bounds together, we obtain \eqref{excess-bound}.
+
+The expression $2^n 3^m / \prod \vec b$ contains at most $n_0+n_1+n_2$ factors of $2$ and at most $m_0+m_2+m_1$ factors of $3$, hence
+$$ \nu_2(2^n 3^m / \prod \vec b) \log 2 +
+\nu_3(2^n 3^m / \prod \vec b) \log 3
+\leq \log 2^{n_0+n_1} 3^{m_1} + \log 2^{n_2} 3^{m_0+m_2},$$
+and the bound \eqref{surplus-bound} follows.
+\end{proof}
+
+
 
 \section{Criteria for lower bounding \texorpdfstring{$t(N)$}{t(N)}}
 
-Suppose we are trying to factorize $N!$ into factors of size at least $t$.  A candidate tuple $\vec b = (b_1,\dots,b_{N'})$ is said to be \emph{admissible} if $b_j \geq t$ for all $j=1,\dots,N'$.  The \emph{$p$-saving} $S_p(\vec b)$ of the tuple is defined by the formula
-$$ S_p(\vec b) \coloneqq \nu_p(N) - \sum_{i=1}^{N'} \nu_p(b_i).$$
-A tuple is \emph{debt-free} if $S_p(\vec b) \geq 0$ for all $p$.
+\Cref{balance} gives an initial criterion for lower bounding $t(N)$.  We now perform various manipulations on tuples to replace this criterion with a more tractable one.
+For $a_+,a_- \in [0,+\infty]$, we define the asymmetric norm $|x|_{a_+,a_-}$ of a real number $x$ by the formula
+$$ |x|_{a_+,a_-} \coloneqq \max(a_+ x, -a_- x),$$
+thus this is $a_+ |x|$ when $x$ is positive and $a_- |x|$ when $x$ is negative.  If $a_+,a_-$ are finite, this function is Lipschitz with constant $\max(a_+,a_-)$.  One can think of $a_+$ as the ``cost'' of making $x$ positive, and $a_-$ as the
+``cost'' of making $x$ negative.  One can then reformulate \Cref{balance} as follows.
 
-From the fundamental theorem of arithmetic we have
-$$ \log b_i = \sum_p \nu_p(b_i) \log p$$
-and 
-$$ \log N! = \sum_p \nu_p(N!) \log p$$
-and hence we obtain the identity 
-\begin{equation}\label{ident}
-   \log N! - \sum_{i=1}^{N'} \log b_i = \sum_p S_p(\vec b) \log p.
-\end{equation}
-
-By the fundamental theorem of arithmetic, we obtain a perfect factorization $N! = b_1 \dots b_{N'}$ if all the $p$-savings vanish.  The \emph{excess} $E(\vec b)$ is defined to be the quantity
-\begin{equation}\label{excess} 
-  E(\vec b) \coloneqq \sum_{i=1}^{N'} \log \frac{b_i}{t}.
-\end{equation}
-This quantity is non-negative for admissible tuples.  Intuitively, the smaller the excess, the more efficient the candidate factorization.  By combining \eqref{excess} with \eqref{ident} we obtain the identity
-\begin{equation}\label{excess-save}
-  E(\vec b) + \sum_p S_p(\vec b) \log p = \log N! - N' \log t.
-\end{equation}
-
-We conclude
-
-\begin{proposition}  Let $2 \leq t \leq N$ with $t = N /e^{1+\delta}$.  Suppose one can find an admissible tuple $\vec b$ such that
-\begin{equation}\label{main} 
-  E(\vec b) + \sum_p |S_p(\vec b)|_{\log p,\infty}  \leq \delta N + \log \sqrt{2\pi N}.
+\begin{proposition}[Reformulated balance criterion]\label{balance-reform}  Let $1 \leq t \leq N$, and suppose that one has a $t$-admissible tuple $\vec b$ such that
+\begin{equation}\label{new-balance}
+    E_t(\vec b) + \sum_p |\nu_p(N!/\prod \vec b)|_{\log p,\infty} \leq \log N! - N \log t.
 \end{equation}
 Then $t(N) \geq t$.
 \end{proposition}
 
-For the purposes of the Guy--Selfridge conjecture $t(N) \geq N/3$, we may take $\delta = \log \frac{3}{e} \approx 0.098$.  
+Indeed, the infinite penalty for making $\nu_p(N!/\vec b)$ in \eqref{new-balance} ensures that $\vec b$ is a subfactorization of $N!$.
 
-In \cite[Proposition 3.1]{tao} the variant criterion
-$$ 
-E(\vec b)  + \sum_p |S_p(\vec b)|_{\log p,\log 2} + |N'-N| \log N \leq \delta N$$
-was given in place of \eqref{main}, but the condition \eqref{main} seems slightly superior numerically (we no longer need to maintain direct control on $N'$).
+We will reduce this infinite penalty term later, but let us work on other aspects of the criterion \eqref{new-balance} first.  In practice we will apply this criterion with $t \coloneqq N / e^{1+\delta}$ for some $\delta>0$; for instance, if we wish to set $t = N/3$, then $\delta = \log \frac{e}{3} \approx 0.098$.  From \eqref{stirling} we may then replace $\log N! - N \log t = \log N! - N \log N + N + \delta N$ by the slightly smaller quantity
+$$ \delta N + \log \sqrt{2\pi N}.$$
+The $\log \sqrt{2\pi N}$ is a lower order term, and we shall use it only to clean up some other lower order terms.
 
-\begin{proof}  From \eqref{main}, the tuple must be debt-free.  Applying \eqref{stirling}, we have
-$$ E(\vec b) + \sum_p S_p(\vec b) \log p < \log N! - N\log t,$$
-and hence by \eqref{excess-save} we have $N' \geq N$.
-If we then delete all but $N$ of the terms in the tuple $(b_1,\dots,b_{N'})$, and then distribute all $p$-savings amongst these surviving terms arbitrarily, we obtain a factorization $N! = a_1 \dots a_N$ with all $a_i \geq t$, so that $t(N) \geq t$ as required.
-\end{proof}
+Using 
 
-In view of this proposition, we no longer need to keep direct track of the number of terms in the factorization; as long as we keep the excess small, and have not too much $p$-saving, particularly at large primes, while staying debt-free, we get a lower bound on $t(N)$. 
 
-For very large $N$, a promising strategy to improve the criterion is to initially allow for a large $2$-saving and $3$-saving, and then ``spend'' those available primes later on well chosen factors of the form $2^m 3^n$.  Here is a more precise formulation.
-
-\begin{proposition}[Second criterion]  Let $2 \leq t \leq N$ with $t = N /e^{1+\delta}$.  Suppose we can find pairs $(m_1,n_1)$, $(m_2,n_2)$ of natural numbers with
-\begin{equation}\label{atet}
-   t \leq 2^{m_i} 3^{n_i} \leq e^\eps t \leq N
-\end{equation}
-for $i=1,2$ and some $\eps>0$.  Suppose we also have an admissible tuple $\vec b$ obeying the following axioms:
-\begin{itemize}
-  \item[(i)]  The vector
-\begin{equation}\label{svec}
-  (S^-_2(\vec b), S^-_3(\vec b))
-\end{equation}
-in $\R^2$ is a non-negative linear combination of $(m_1,n_1)$ and $(m_2,n_2)$.
-  \item[(ii)]  We have
-  \begin{equation}\label{main-2}
-    \begin{split} 
-&    E(\vec b) + \sum_{p>3} |S_p(\vec b)|_{\log p,\infty} \\
-& \quad + \frac{3}{2} \log N + \frac{\eps \log 12}{2} \frac{N}{\log t} \leq \delta N + \log \sqrt{2\pi}.
-    \end{split}
-  \end{equation}
-\end{itemize}
-Then $t(N) \geq t$.
-\end{proposition}
-
-In practice, the $\frac{3}{2} \log N$ term is negligible. The point here is that this version of the criterion largely frees up the need to track the undershoot at $2$ and $3$, other than to verify the (quite mild) condition (i).  The quantity $\eps$ can be easily bounded by $\log 2$ in most cases, but one expects (based on the irrationality of $\log 3/\log 2$) that one can do better than this; and this quantity can be bounded numerically quite easily even for rather large $N$.
-
-\begin{proof}  By hypothesis, the vector \eqref{svec} can be written as $s_1 (m_1,n_1) + s_2 (m_2,n_2)$ for some positive reals $s_1,s_2$.  Splitting into integer and fractional parts, we can thus write \eqref{svec} as the sum of $\lfloor s_1 \rfloor$ copies of $(m_1,n_1)$, $\lfloor s_2 \rfloor$ copies of $(m_2,n_2)$, and a vector with coefficients at most $(m_1+m_2, n_1+n_2)$.  If we then add $s_1$ copies of $2^{m_1} 3^{n_1}$ and $s_2$ copies of  $2^{m_2} 3^{n_2}$ to the admissible tuple, then it remains admissible and debt-free; but now $S_2(\vec b)$, $S_3(\vec b)$ are reduced to at most $m_1+m_2$, $n_1+n_2$ respectively.  Also, each $2^{m_i} 3^{n_i}$ contributes an excess of at most $\eps$, which in turn is at most $\frac{\eps}{\log t} \log 2^{m_i} 3^{n_i}$; hence the total additional excess produced here is at most $\frac{\eps}{\log t} \log 2^{S_2(\vec b)} 3^{S_3(\vec b)}$.  From \eqref{legendre} we have $S_p(\vec b) \leq \frac{N}{p-1}$, hence the additional excess is at most
-$$ \frac{\eps}{\log t} \log 2^{N} 3^{N/2} \leq \frac{\eps \log 12}{2} \frac{N}{\log t}.$$
-The new value of $S_2(\vec b) \log 2 + S_3(\vec b) \log 3$
-is at most
-\begin{align*}
-  (m_1+m_2) \log 2 + (n_1+n_2)\log 3 &= \log 2^{m_1} 3^{n_1} + \log 2^{m_2} 3^{n_2} \\
-  &\leq 2 \log N
-  &= \frac{3}{2} \log N + \log \sqrt{N}.
-\end{align*}
-From \eqref{main-2} we conclude that the new admissible tuple obeys \eqref{main}, and the claim now follows from the previous proposition.  
-\end{proof}
-
-We can now allow for some debt at various primes $p$, as well as handle savings at small primes more efficiently.
-
-\begin{proposition}[Third criterion]  Let $2 \leq t \leq N$ with $t = N /e^{1+\delta}$.  Suppose we can find pairs $(m_1,n_1)$, $(m_2,n_2)$ of natural numbers obeying \eqref{test}, and an admissible tuple $\vec b$ obeying the following axioms:
-  \begin{itemize}
-    \item[(i)]  The vector
-  \begin{equation}\label{svec-2}
-    (S_2(\vec b)-u, S_3(\vec b))
-  \end{equation}
-  in $\R^2$ is a non-negative linear combination of $(m_1,n_1)$ and $(m_2,n_2)$, whenever
-  $$ 0 \leq u \leq \sum_{3 < p \leq \sqrt{t}} |S_p(\vec b)|_{\frac{2 \log p \lceil (\log t)/2\log 2 \rceil}{\log t}, \lceil \frac{\log p}{\log 2} \rceil} + \sum_{p>\sqrt{t}} |S_p(\vec b)|_{0,\lceil \frac{\log p}{\log 2} \rceil} + \left\lceil \frac{\log t}{\log 2} \right\rceil.$$
-    \item[(ii)]  We have
-    \begin{equation}\label{main-3}
-      \begin{split} 
-  &    E(\vec b) + \sum_{3 < p \leq \sqrt{t}} |S_p(\vec b)|_{\frac{2(\log p) \log 2}{\log t}, \log 2} + \sum_{p>\sqrt{t}} |S_p(\vec b)|_{\log p,\log 2} \\
-  & \quad + \frac{3}{2} \log N + \frac{\eps \log 12}{2} \frac{N}{\log t} \leq \delta N.
-      \end{split}
-    \end{equation}
-  \end{itemize}
-  Then $t(N) \geq t$.
-  \end{proposition}
-  
-The point here is that the ``cost'' of excessive savings at primes $3 < p \leq \sqrt{t}$ has been significantly reduced.  The condition (i) has become more complicated, but is easy to satisfy in practice.
-
-\begin{proof} Suppose we have a $p$-debt $S_p(\vec b) < 0$ at some some prime $p>3$.  Then one of the elements of the tuple $\vec b$ is divisible by $p$.  If we replace $p$ by $2^{\lceil \log p/\log 2 \rceil}$ in that element, then we keep the tuple admissible, increasing the excess by at most $\log 2$, while decreasing $S_2(\vec b)$ by $\lceil \log p/\log 2 \rceil$, increasing $S_p(\vec b)$ by one (and thus decreasing $|S_p(\vec b)|_{0,\lceil \frac{\log p}{\log 2} \rceil}$ or $|S_p(\vec b)|_{0,\lceil \frac{\log p}{\log 2} \rceil}$ by $\lceil \frac{\log p}{\log 2} \rceil$), and not affecting any of the other $p$-savings.  Thus, by iterating this procedure, we may assume that the tuple is debt-free.
-
-  Now consider the positive $p$-savings $S_p(\vec b)>0$ coming from primes $3 < p \leq \sqrt{t}$, which multiply to an expression $B$ with 
-  $$\log B = \sum_{3 < p \leq \sqrt{t}} S_p(\vec b) \log p.$$
-  By the greedy algorithm, one can factor $B$ into $M$ expressions in the interval $(\sqrt{t},t]$, plus at most one further factor bounded by $t$, where $M$ obeys the bound
-  $$ \left(\sqrt{t}\right)^M \leq B$$
-  and hence on taking logarithms and rearranging
-  $$ M \leq \sum_{3 < p \leq \sqrt{t}} S_p(\vec b)  \frac{2 \log p}{\log t}.$$
-For each of the $M$ factors, one can make it be larger than or equal to $t$ (but less than $2t$) by inserting at most $\lceil (\log \sqrt{t})/\log 2 \rceil = \lceil (\log t) / 2 \log 2 \rceil$ factors of two; and the final factor can also be similarly adjusted using at most $\lceil \log t/\log 2\rceil$ factors of two.  Each such adjustment increases the excess by at most $\log 2$; since $\log 2 \leq \log \sqrt{2\pi}$, we can upper bound the net increase in the excess by
-$$ \sum_{3 < p \leq \sqrt{t}} |S_p(\vec b)|_{\frac{2 (\log p) \log 2}{\log t}, 0} + \log \sqrt{2\pi},$$
-while the $2$-saving $S_2(\vec b)$ has been reduced by at most
-$$ \sum_{3 < p \leq \sqrt{t}} |S_p(\vec b)|_{\frac{2 \log p \lceil (\log t)/2\log 2 \rceil}{\log t}, 0} + \left \lceil \frac{\log t}{\log 2} \right \rceil.$$
-Performing these adjustments to remove all $p$-savings at primes $3 < p \leq K$, we obtain the current criterion from the previous one.
-\end{proof}
-  
-  
 \section{Criteria for upper bounding \texorpdfstring{$t(N)$}{t(N)}}
 
 We have the trivial upper bound $t(N) \leq (N!)^{1/N}$.  This can be improved to $t(N) \leq N/e$ for $N \neq 1,2,4$, answering a conjecture of Guy and Selfridge \cite{guy-selfridge}; see \cite{tao}.  This was derived from the following slightly stronger criterion, which asymptotically gives $\frac{t(N)}{N} \leq \frac{1}{e} - \frac{c_0+o(1)}{\log N}$:
