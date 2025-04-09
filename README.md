@@ -37,7 +37,7 @@ Secondary goals are
 
 1. Conjecture 1 has been reduced to Conjecture 2.
 2. Conjecture 2 is known in the range $8 \times 10^4 \leq N \leq 10^9$, and for sufficiently large $N$.  The approximation $\frac{t(N)}{N} \approx \frac{1}{e} - \frac{c_0}{\log N}$ suggests that the threshold is approximately $6700$.
-3. Some lower and upper bounds on $t(N)$ are known beyond $N=200$, but the OEIS table has not yet been extended.
+3. The OEIS tables have been extended to $N \leq 600$.
 4. Non-rigorous numerics have shown that $c_0 \approx 0.3044$.
 
 ## Timeline 
