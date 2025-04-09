@@ -1,0 +1,39 @@
+import matplotlib.pyplot as plt
+import math
+
+# Code for plotting fractional gaps of log 3 / log 2
+
+def largest_fractional_gap(N):
+    log_ratio = math.log(3) / math.log(2)
+    
+    # Compute fractional parts
+    frac_parts = [(n * log_ratio) % 1 for n in range(N)]
+    
+    # Add endpoints 0 and 1
+    frac_parts.extend([0.0, 1.0])
+    
+    # Sort them
+    frac_parts.sort()
+    
+    # Compute gaps between consecutive elements
+    gaps = [frac_parts[i+1] - frac_parts[i] for i in range(len(frac_parts)-1)]
+    
+    # Find the largest gap
+    max_gap = max(gaps)
+    
+    return max_gap
+
+
+base = range(1,1900)
+gaps = [N * largest_fractional_gap(N) for N in base]
+
+print(gaps)
+
+plt.figure(figsize=(8, 6))
+plt.plot(base, gaps, label='largest gap * N' )
+plt.title('Largest fractional gap of $N$ multiples of $\\log 3/\\log 2$')
+plt.xlabel('$N$')
+plt.legend()
+plt.grid(True)
+plt.show()
+
