@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import math
 from sympy.ntheory import factorint
 
-# Code for generating Figure 2 in the original paper.
+# Code for generating Figure 2 in the original paper (but extended to $N=200$).
 
 
 inv_values = [1, 4, 9, 14, 16, 20, 24, 27, 32, 34, 38, 40, 46, 49, 51, 57, 58, 62, 65, 68, 72, 77, 80, 84, 87, 90, 93, 94, 100, 104, 108, 111, 114, 115, 118, 125, 125, 128, 130, 135, 140, 143, 145, 147, 153, 156, 159, 161, 168, 168, 172, 176, 176, 180, 187, 187, 192, 195, 200]
@@ -82,4 +82,7 @@ def plot1():
     plt.grid(True)
     plt.show()
 
+for i in range(len(values)):
+    print(f"t[{i+1}] = {values[i]}")
+    
 plot1()

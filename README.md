@@ -18,7 +18,11 @@ Here is an extension of that image to $N \leq 200$:
 
 A view of $80 \leq N \leq 599$ (using a greedy lower bound for $t(N)$):
 
-![Plot of $t(N)$ and comparators for $80 \leq N \leq 599$](LaTeX/original%20paper/upperbound.png)
+![Plot of $t(N)$ and comparators for $80 \leq N \leq 599$](src/python/newplot_600_all.png)
+
+An enlargement of the previous graph, also including the greedy algorithm lower bound:
+
+![Plot of $t(N)$ and comparators for $80 \leq N \leq 599$](src/python/newplot_600.png)
 
 This repository records the efforts to verify the [Guy-Selfridge conjectures](https://zbmath.org/0918.11013) concerning the sequence $t(N)$:
 
@@ -55,7 +59,7 @@ Secondary goals are
 | [5 Apr 2025](https://terrytao.wordpress.com/2025/03/26/decomposing-a-factorial-into-large-factors/#comment-687676) | Kevin Ventullo | 2 | $[3 \times 10^5, 10^8$] | Improved greedy 
 | [6 Apr 2025](https://terrytao.wordpress.com/2025/03/26/decomposing-a-factorial-into-large-factors/#comment-687676) | Kevin Ventullo | 2 | $[8 \times 10^4, 3 \times 10^8$] | Improved greedy | Conjecture 1 is now reduced to Conjecture 2
 | [6 Apr 2025](https://terrytao.wordpress.com/2025/03/26/decomposing-a-factorial-into-large-factors/#comment-687695) | Matthieu Rosenfeld | 2 | $[8 \times 10^4, 10^9]$ | Improved greedy
-| [9 Apr 2025](https://github.com/teorth/erdos-guy-selfridge/pull/1) | uhrmar | 3 | $[1,600]$ | Linear programming | Bounds are exact for $N \neq 155$
+| [9 Apr 2025](https://github.com/teorth/erdos-guy-selfridge/pull/1) | uhrmar | 3 | $[1,600]$ | Linear programming | Exact for $N \neq 155$
 
 ## Data
 
