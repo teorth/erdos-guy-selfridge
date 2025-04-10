@@ -40,8 +40,8 @@ Secondary goals are
 ## Current status
 
 1. Conjecture 1 has been reduced to Conjecture 2.
-2. Conjecture 2 is known in the range $8 \times 10^4 \leq N \leq 10^9$, and for sufficiently large $N$.  The approximation $\frac{t(N)}{N} \approx \frac{1}{e} - \frac{c_0}{\log N}$ suggests that the threshold is approximately $6700$.
-3. The OEIS tables have been extended to $N \leq 600$.
+2. Conjecture 2 is known in the range $8 \times 10^4 \leq N \leq 10^9$, and for sufficiently large $N$.  The approximation $\frac{t(N)}{N} \approx \frac{1}{e} - \frac{c_0}{\log N}$ suggests (somewhat weakly) that the true threshold is approximately $7 \times 10^3$.
+3. The OEIS tables have been extended to $N \leq 600$.  For $N \neq 155$, the linear programming method systematically computes all values of $t(N)$ up to $t(600)$; for $N=155$, the bound is off by one, and integer programming methods are needed instead.
 4. Non-rigorous numerics have shown that $c_0 \approx 0.3044$.
 
 ## Timeline 
