@@ -199,24 +199,26 @@ To estimate the prime counting function, we have the following good asymptotics 
 \section{Powers of 2 and 3}
 
 For any $t \geq 1$, there exists $n$ such that
-$$ t \leq 2^n < 2t;$$
-indeed one can take $n = \lfloor \log t / \log 2 \rfloor$.  If one also admits powers of two, one can do better.  For instance: 
+\begin{equation}\label{t1}
+   t \leq 2^n < 2t;
+\end{equation}
+indeed one can take $n = \lfloor \log t / \log 2 \rfloor$.  If one also admits powers of three, one can do better.  For any $L \geq 1$, let $\kappa_L$ be the least quantity such that for any real nmber $t \geq L$, there exists natural numbers $n,m$ such that
+$$ t \leq 2^n 3^m \leq \exp(\kappa_L) t.$$
+Thus for instance $\kappa_1 = \log 2$ thanks to \eqref{t1}, and it is clear that $\kappa_L$ is non-decreasing in $L$.  We have the following explicit value, improving upon $\log 2 = 0.69314\dots$ by a factor of about four:
 
-\begin{lemma}\label{lemcount-0}  For any (real) $t \geq 40.5$, there exist natural numbers $n,m$ such that
-  $$ t \leq 2^n 3^m \leq \frac{32}{27} t.$$
+\begin{lemma}\label{lemcount-0}  $\kappa_{40.5} = \log \frac{32}{27} = 0.16989\dots$.
 \end{lemma}
 
-For comparison, we have $\log \frac{32}{27} = 0.16989\dots$, representing about a four-fold improvement over $\log 2 = 0.69314\dots$.
-
-\begin{proof}  If $t \leq 48 = 2^4 \times 3 = \frac{32}{27} \times 40.5$ then we can take $n=4, m=1$, so assume $t > 2^4 \times 3$.  Let $2^n 3^m$ be the smallest number of this form that is at least $t$, then we must have $n \geq 5$ or $m \geq 2$ (or both).  Thus at least one of $\frac{3^3}{2^5} 2^n 3^m$ and $\frac{2^3}{3^2} 2^n 3^m$ is an integer, and is thus at most $t$ by construction.  Hence either $2^n 3^m \leq \frac{2^5}{3^3} t$ or $2^n 3^m \leq \frac{3^2}{2^3} t$.  Since $\frac{3^2}{2^3} \leq \frac{2^5}{3^3} = \frac{32}{27}$, the claim follows.
+\begin{proof}  By taking $t$ slightly larger than $40.5$, the first available number of the form $2^n 3^m$ is $48 = 2^4 \times 3 = \frac{32}{27} \times 40.5$, giving the lower bound $\kappa_{40.5} \geq \frac{32}{27}$.  This also gives the upper bound in the range $40.5 \leq t \leq 2^4 \times 3$, so assume $t > 2^4 \times 3$.  
+  
+Let $2^n 3^m$ be the smallest number of this form that is at least $t$, then we must have $n \geq 5$ or $m \geq 2$ (or both).  Thus at least one of $\frac{3^3}{2^5} 2^n 3^m$ and $\frac{2^3}{3^2} 2^n 3^m$ is an integer, and is thus at most $t$ by construction.  Hence either $2^n 3^m \leq \frac{2^5}{3^3} t$ or $2^n 3^m \leq \frac{3^2}{2^3} t$.  Since $\frac{3^2}{2^3} \leq \frac{2^5}{3^3} = \frac{32}{27}$, the claim follows.
 \end{proof}
 
+Asymptotically, we can do better:
 
-Asymptotically, we can do even better:
-
-\begin{lemma}[Baker bound]\label{baker} For $t \geq 2$, we can find natural numbers $n,m$ such that
-  $$ t \leq 2^n 3^m \leq \exp(O(\log^{-c} t)) t$$
-for some absolute constant $c>0$.
+\begin{lemma}[Baker bound]\label{baker} We have
+  $$ \kappa_L \ll \log^{-c} L$$
+for all $L \geq 40.5$ and some absolute constant $c>0$.
 \end{lemma}
 
 \begin{proof}  From the classical theory of continued fractions, we can find rational approximants
@@ -247,27 +249,27 @@ then the first expression of the form $2^n 3^m$ that is greater than or equal to
 $$ t \leq 2^n 3^m \leq t \max\left( \frac{3^{q_{2j}}}{2^{p_{2j}}}, \frac{2^{p_{2j+1}}}{3^{q_{2j+1}}} \right).$$
 From \eqref{abn},  \eqref{abn-2} one can bound
 $$ \max\left( \frac{3^{q_{2j}}}{2^{p_{2j}}}, \frac{2^{p_{2j+1}}}{3^{q_{2j+1}}} \right) \leq \exp\left( O\left( \frac{1}{q_{2j}}\right)\right).$$
-If one then sets $j$ to be the largest natural number for which \eqref{atb} holds, the claim then follows from \eqref{bj1}, \eqref{bj2}.
+If one then sets $j$ to be the largest natural number for which \eqref{atb} holds with $t$ replaced by $L$, the claim then follows from \eqref{bj1}, \eqref{bj2}.
 \end{proof}
 
 
 We can now obtain efficient $t$-admissible subfactorizations of $2^n 3^m$ when $n,m$ are somewhat comparable.
 
-\begin{lemma}  Set $L \coloneqq 40.5$ and $\kappa \coloneqq \log \frac{32}{27}$, or else $L \geq 2$ and $\kappa = c \log^{-c} L$ for a sufficiently small constant $c>0$.  Let $t > 3L$ and $n,m$ be positive integers obeying the conditions
+\begin{lemma}\label{bound23}  Let $L \geq 40.5$.  Let $t > 3L$ and $n,m$ be positive integers obeying the conditions
 \begin{equation}\label{B-bound}
 \frac{\log(3L)+\kappa}{\log t - \log(3L)} \leq \frac{n \log 2}{m \log 3} \leq \frac{\log t - \log(2L)}{\log(2L)+\kappa}.
 \end{equation}
 Then one can find a $t$-admissible subfactorization $\vec b$ of $2^n 3^m$ such that
 \begin{equation}\label{excess-bound} 
-  E_t(\vec b) \leq \frac{\kappa}{\log t} (n \log 2 + m \log 3)
+  E_t(\vec b) \leq \frac{\kappa_L}{\log t} (n \log 2 + m \log 3)
 \end{equation}
 and
 \begin{equation}\label{surplus-bound} 
-  |\nu_2(2^n 3^m/\vec b)|_{\log 2,\infty} + |\nu_3(2^n 3^m/\vec b)|_{\log 3,\infty}  \leq 2(\log t + \kappa).
+  |\nu_2(2^n 3^m/\vec b)|_{\log 2,\infty} + |\nu_3(2^n 3^m/\vec b)|_{\log 3,\infty}  \leq 2(\log t + \kappa_L).
 \end{equation}
 \end{lemma}
 
-\begin{proof}  Let $2^{n_0}, 3^{m_0}$ be the largest powers of $2$ and $3$ less than $t/L$ respectively.  By \Cref{lemcount-0} or \Cref{baker}, we can find natural numbers $n_1,m_1,n_2,m_2$ such that
+\begin{proof}  Let $2^{n_0}, 3^{m_0}$ be the largest powers of $2$ and $3$ less than $t/L$ respectively.  By definitionof $\kappa_L$, we can find natural numbers $n_1,m_1,n_2,m_2$ such that
 \begin{equation}\label{ab} 
   \frac{t}{2^{n_0}} \leq 2^{n_1} 3^{m_1} \leq e^{\kappa} \frac{t}{2^{n_0}}
 \end{equation}
@@ -326,7 +328,99 @@ We will reduce this infinite penalty term later, but let us work on other aspect
 $$ \delta N + \log \sqrt{2\pi N}.$$
 The $\log \sqrt{2\pi N}$ is a lower order term, and we shall use it only to clean up some other lower order terms.
 
-Using 
+Using \Cref{bound23}, we can leave a large surplus at primes $2,3$ and still get good bounds:
+
+\begin{proposition}[Criterion with large $2$-surplus and $3$-surplus]\label{balance-23}  Let $L \geq 40.5$.
+  Let $3L < t = N/e^{1+\delta}$ for some $\delta>0$, and suppose that one has a $t$-admissible tuple $\vec b$ such that $\nu_2(N!/\prod \vec b), \nu_3(N!/\prod \vec b) > 0$ obey the bounds
+$$
+\frac{\log(3L)+\kappa_L}{\log t - \log(3L)} \leq \frac{\nu_2(N!/\prod \vec b) \log 2}{\nu_3(N!/\prod \vec b) \log 3} \leq \frac{\log t - \log(2L)}{\log(2L)+\kappa_L},
+$$
+and such that
+  \begin{equation}\label{new-balance-3}
+      E_t(\vec b) + \sum_{p>3} |\nu_p(N!/\prod \vec b)|_{\log p,\infty} \leq \delta N + \kappa_L - \frac{3}{2} \log N - \kappa_L (\log \sqrt{12}) \frac{N}{\log t}.
+  \end{equation}
+  Then $t(N) \geq t$.
+\end{proposition}
+  
+
+\begin{proof} Write $n \coloneqq \nu_2(N!/\prod \vec b)$ and $m \coloneqq \nu_3(N!/\prod \vec b)$.  From \eqref{legendre} we have $n \leq N$ and $m \leq N/2$, hence
+  $$ n \log 2 + m \log 3 \leq N \log \sqrt{12}.$$
+Applying \Cref{bound23}, we can find a subfactorization $\vec b'$ of $2^n 3^m$ with an excess of at most $(\kappa_L \log \sqrt{12}) \frac{N}{\log t}$, and with
+$$ |\nu_2(2^n 3^m/\prod \vec b')|_{\log 2,\infty}
++ |\nu_3(2^n 3^m/\prod \vec b')|_{\log 3,\infty}
+ \leq 2(\log t + \kappa_L) \leq 2 \log N - 2 + 2 \kappa_L.$$
+ If we let $\vec b''$ be the concatenation of $\vec b$ and $\vec b'$, then $\vec b''$ is another $t$-admissible tuple, and from \eqref{new-balance-3} and the observation that $-2+3\kappa_L \leq \log \sqrt{2\pi}$, we see that
+ $$
+ E_t(\vec b'') + \sum_{p} |\nu_p(N!/\prod \vec b'')|_{\log p,\infty} \leq \delta N + \log \sqrt{2\pi N},$$
+ and the claim now follows from \Cref{balance-reform}.
+\end{proof}
+
+The criterion \eqref{new-balance-3} will still be somewhat expensive at small primes $3 < p \leq \sqrt{t/L}$.  We can improve the situation as follows.
+
+\begin{proposition}[Improved criterion with large $2$-surplus and $3$-surplus]\label{balance-23'}  Let $L \geq 40.5$.
+  Let $9L < t = N/e^{1+\delta}$ for some $\delta>0$, and suppose that one has a $t$-admissible tuple $\vec b$ with the property that whenever $n_{**}, m_{**}$ are natural numbers obeying the bounds
+  $$ n_{**} \log 2 + m_{**} \log 3 \leq 
+  \sum_{3 < p \leq \sqrt{t/L}}
+  |\nu_p(N!/\prod \vec b)|_{\frac{\log \sqrt{tL} + \kappa}{\log\sqrt{t/L}} \log p,\infty}
+  + \log t + \kappa,$$
+  then $\nu_2(N!/\prod \vec b) > n_{**}$, $\nu_3(N!/\prod \vec b) > m_{**}$, and furthermore
+$$
+\frac{\log(3L)+\kappa_L}{\log t - \log(3L)} \leq \frac{(\nu_2(N!/\prod \vec b)-n_{**}) \log 2}{(\nu_3(N!/\prod \vec b)-m_{**}) \log 3} \leq \frac{\log t - \log(2L)}{\log(2L)+\kappa_L},
+$$
+and furthermore suppose that
+  \begin{equation}\label{new-balance-4}
+      E_t(\vec b) + \sum_{3 < p \leq \sqrt{t/L}}
+   |\nu_p(N!/\prod \vec b)|_{\frac{\kappa_L \log p}{\log \sqrt{t/L}},\infty} + 
+   \sum_{p>\sqrt{t/L}} |\nu_p(N!/\prod \vec b)|_{\log p,\infty}
+   \leq \delta N - \frac{3}{2} \log N - \kappa_L (\log \sqrt{12}) \frac{N}{\log t}.
+  \end{equation}
+  Then $t(N) \geq t$.
+\end{proposition}
+
+\begin{proof} By \eqref{new-balance-4}, $\vec b$ is a subfactorization of $N!$. Consider all the $p$-surplus primes in the range $3 < p \leq \sqrt{t/L}$, thus each such prime is considered with multiplicity $\nu_p(N!/\prod \vec b)$.  Denoting their product as $B$, we have
+  $$ \log B = \sum_{3 < p \leq \sqrt{t/L}}
+  |\nu_p(N!/\prod \vec b)|_{\log p,\infty}.$$
+Using the greedy algorithm, one can factor $B$ into $M$ factors $c_1,\dots,c_M$ in the interval $[\sqrt{t/L}, \frac{t/L}]$, times one exceptional factor $c_*$ in $[1,\sqrt{t/L}]$, for some $M$.  We have the bound
+$$ (\sqrt{t/L})^M \leq B$$
+and hence
+$$ M \leq \sum_{3 < p \leq \sqrt{t/L}}
+|\nu_p(N!/\prod \vec b)|_{\frac{\log p}{\log\sqrt{t/L}},\infty}.$$
+For each of the $M$ factors $c_i$, we may use the definition of $\kappa_L$ and find an element $2^{n_i} 3^{m_i}$ in the interval $[t/c_i,e^{\kappa_L} t/c_i]$, and similarly for the exceptional factor $c_*$ we may find an element $2^{n_*} 3^{m_*}$ in the interval $[t/c_*,e^{\kappa_L} t/c_*]$.  If we then adjoin the elements $2^{n_i} 3^{m_i} c_i$ for $i=1,\dots,M$ as well as $2^{n_*} 3^{m_*} c_*$ to the tuple $\vec b$ to create a new tuple $\vec b'$.  This tuple is still $t$-admissible, but now has no $p$-surplus (or $p$-deficit) at any prime $3 < p \leq \sqrt{t/L}$.  The quantity $n_i \log 2 + m_i \log 3$ is bounded by $\log \sqrt{tL} + \kappa$, and the quantity $n \log 2 + m \log 3$ is similarly bounded by $\log t + \kappa$, hence if we denote $n_{**} \coloneqq n_1 + \dots + n_M + n_*$ and $m_{**} \coloneqq m_1 + \dots + m_M + m_*$, we have
+$$ n_{**} \log 2 + m_{**} \log 3 \leq 
+\frac{\log \sqrt{tL} + \kappa}{\log\sqrt{t/L}}
+\sum_{3 < p \leq \sqrt{t/L}}
+|\nu_p(N!/\prod \vec b)|_{\log p,\infty}
++ \log t + \kappa.$$
+By hypothesis, we now see that $\vec b'$ has no $p$-deficit at $2$ or $3$ either, so $\vec b'$ is still a subfactorization of $N!$.  Each of the new factors in $\vec b'$ contributes an excess of at most $\kappa_L$, so the total excess of $\vec b'$ is at most
+$$ E_t(\vec b) + \kappa_L M + \kappa_L$$
+which is in turn bounded by
+$$ E_t(\vec b) + \sum_{3 < p \leq \sqrt{t/L}}
+|\nu_p(N!/\prod \vec b)|_{\frac{\kappa \log p}{\log\sqrt{t/L}},\infty} + \kappa_L.$$
+We conclude that $\vec b'$ obeys the hypotheses of \Cref{new-balance-3}, and the claim follows.
+\end{proof}
+
+Finally, we relax the subfactorization condition by permitting some $p$-debt at various primes $p>3$.
+
+\begin{proposition}[Improved criterion with large $2$-surplus and $3$-surplus, and some debt]\label{balance-23''}  Let $L \geq 40.5$.  Let $9L < t = N/e^{1+\delta}$ for some $\delta>0$, and suppose that one has a $t$-admissible tuple $\vec b$ with the property that whenever $n_{**}, m_{**}$ are natural numbers obeying the bounds
+  $$ n_{**} \log 2 + m_{**} \log 3 \leq 
+  \sum_{3 < p \leq \sqrt{t/L}}
+  |\nu_p(N!/\prod \vec b)|_{\frac{\log \sqrt{tL} + \kappa}{\log\sqrt{t/L}} \log p,\lceil \log p/\log 2 \rceil}
+  + 
+  \sum_{p > \sqrt{t/L}} |\nu_p(N!/\prod \vec b)|_{0,\lceil \log p/\log 2 \rceil}   
+  + \log t + \kappa,$$
+  then $\nu_2(N!/\prod \vec b) > n_{**}$, $\nu_3(N!/\prod \vec b) > m_{**}$, and furthermore
+$$
+\frac{\log(3L)+\kappa_L}{\log t - \log(3L)} \leq \frac{(\nu_2(N!/\prod \vec b)-n_{**}) \log 2}{(\nu_3(N!/\prod \vec b)-m_{**}) \log 3} \leq \frac{\log t - \log(2L)}{\log(2L)+\kappa_L},
+$$
+and furthermore suppose that
+  \begin{equation}\label{new-balance-5}
+      E_t(\vec b) + \sum_{3 < p \leq \sqrt{t/L}}
+   |\nu_p(N!/\prod \vec b)|_{\frac{\kappa_L \log p}{\log \sqrt{t/L}},\log 2} + 
+   \sum_{p>\sqrt{t/L}} |\nu_p(N!/\prod \vec b)|_{\log p,\log 2}
+   \leq \delta N - \frac{3}{2} \log N - \kappa_L (\log \sqrt{12}) \frac{N}{\log t}.
+  \end{equation}
+  Then $t(N) \geq t$.
+\end{proposition}
 
 
 \section{Criteria for upper bounding \texorpdfstring{$t(N)$}{t(N)}}
