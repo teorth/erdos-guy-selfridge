@@ -67,11 +67,6 @@ def solve(N, T, skip_tests=True):
         # If we have reached our upper limit, then we are done
         if m == T:
             break
-        
-        # print(f"Found factor {P[i-1] * m}")
-        if P[i-1] * m not in divisors:
-            divisors[P[i-1] * m] = 0
-        divisors[P[i-1] * m] += divisions
 
         # Factor m * p out of our current number
         for j in X:
