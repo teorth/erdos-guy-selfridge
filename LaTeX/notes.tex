@@ -409,7 +409,7 @@ $$ |x|_{a_+,a_-} \coloneqq \max(a_+ x, -a_- x),$$
 thus this is $a_+ |x|$ when $x$ is positive and $a_- |x|$ when $x$ is negative.  If $a_+,a_-$ are finite, this function is Lipschitz with constant $\max(a_+,a_-)$.  One can think of $a_+$ as the ``cost'' of making $x$ positive, and $a_-$ as the
 ``cost'' of making $x$ negative.  One can then reformulate \Cref{balance} as follows.
 
-\begin{proposition}[Reformulated balance criterion]\label{balance-reform}  Let $1 \leq t \leq N$, and suppose that one has a $t$-admissible tuple $\tuple$ obeying the following hypothesis:
+\begin{proposition}[Reformulated balance criterion]\label{balance-reform}  Let $1 \leq t \leq N$, and suppose that one has a $t$-admissible finite multiset $\tuple$ obeying the following hypothesis:
   \begin{itemize}
   \item[(i)] (Small excess and surplus at all primes)
   \begin{equation}\label{new-balance}
@@ -428,7 +428,7 @@ The $\log \sqrt{2\pi N}$ is a lower order term, and we shall use it only to clea
 Using \Cref{bound23}, we can leave a large surplus at tiny primes and still get good bounds:
 
 \begin{proposition}[Criterion with tiny-prime surplus]\label{balance-23}  Let $L \geq 1$.
-  Let $3L < t = N/e^{1+\delta}$ for some $\delta>0$, and suppose that one has a $t$-admissible tuple $\tuple$ obeying the following hypotheses:
+  Let $3L < t = N/e^{1+\delta}$ for some $\delta>0$, and suppose that one has a $t$-admissible finite multiset $\tuple$ obeying the following hypotheses:
 \begin{itemize}
   \item[(i)] (Small excess and surplus at non-tiny primes)
   \begin{equation}\label{new-balance-3}
@@ -459,7 +459,7 @@ $$ |\nu_2(2^n 3^m/\prod \tuple')|_{\log 2,\infty}
 The criterion \eqref{new-balance-3} will still be somewhat expensive at small primes $3 < p \leq \sqrt{t/L}$.  We can improve the situation as follows.
 
 \begin{proposition}[Improved criterion with tiny-prime surplus]\label{balance-23'}  Let $L \geq 1$.
-  Let $9L < t = N/e^{1+\delta}$ for some $\delta>0$, and suppose that one has a $t$-admissible tuple $\tuple$ obeying the following hypotheses.
+  Let $9L < t = N/e^{1+\delta}$ for some $\delta>0$, and suppose that one has a $t$-admissible finite multiset $\tuple$ obeying the following hypotheses.
 \begin{itemize}
 \item[(i)] (Small excess and surplus at non-tiny primes)
 \begin{equation}\label{new-balance-4}
@@ -506,21 +506,10 @@ We conclude that $\tuple'$ obeys the hypotheses of \Cref{new-balance-3}, and the
 
 Finally, we relax the subfactorization condition by permitting some $p$-deficit at various non-tiny primes $p>3$.
 
-\begin{proposition}[Improved criterion with tiny-prime surplus, and some deficit]\label{balance-23''}  Let $L \geq 1$.  Let $9L < t = N/e^{1+\delta}$ for some $\delta>0$, and suppose that one has a $t$-admissible tuple $\tuple$ with the property that whenever $n_{**}, m_{**}$ are natural numbers obeying the bounds
-\begin{align*}
- n_{**} \log 2 + m_{**} \log 3 &\leq 
-  \sum_{3 < p \leq \sqrt{t/L}}
-  |\nu_p(N!/\prod \tuple)|_{\frac{\log \sqrt{tL} + \kappa_L}{\log\sqrt{t/L}} \log p,\log p+\kappa_p}\\
-&\quad   + 
-  \sum_{p > \sqrt{t/L}} |\nu_p(N!/\prod \tuple)|_{0,\log p + \kappa_p}   
-  + \log t + \kappa,
-\end{align*}
-  then $\nu_2(N!/\prod \tuple) > n_{**}$, $\nu_3(N!/\prod \tuple) > m_{**}$, and furthermore
-$$
-\frac{\log(3L)+\kappa_L}{\log t - \log(3L)} \leq \frac{(\nu_2(N!/\prod \tuple)-n_{**}) \log 2}{(\nu_3(N!/\prod \tuple)-m_{**}) \log 3} \leq \frac{\log t - \log(2L)}{\log(2L)+\kappa_L},
-$$
-and furthermore suppose that
-  \begin{equation}\label{new-balance-5}
+\begin{proposition}[Improved criterion with tiny-prime surplus, and some deficit]\label{balance-23''}  Let $L \geq 1$.  Let $9L < t = N/e^{1+\delta}$ for some $\delta>0$, and suppose that one has a $t$-admissible finite multiset $\tuple$ obeying the following hypotheses:
+  \begin{itemize}
+  \item[(i)] (Small excess and surplus at small and large primes) One has
+\begin{equation}\label{new-balance-5}
     \begin{split}
 &      E_t(\tuple) + \sum_{3 < p \leq \sqrt{t/L}}
    |\nu_p(N!/\prod \tuple)|_{\frac{\kappa_L \log p}{\log \sqrt{t/L}},\kappa_p} + 
@@ -528,11 +517,27 @@ and furthermore suppose that
 &\quad    \leq \delta N - \frac{3}{2} \log N - \kappa_L (\log \sqrt{12}) \frac{N}{\log t}.
     \end{split}
   \end{equation}
-  Then $t(N) \geq t$.
+  \item[(ii)] (Large surpluses at tiny primes) 
+  Whenever $n_{**}, m_{**}$ are natural numbers obeying the bounds
+  \begin{align*}
+   n_{**} \log 2 + m_{**} \log 3 &\leq 
+    \sum_{3 < p \leq \sqrt{t/L}}
+    |\nu_p(N!/\prod \tuple)|_{\frac{\log \sqrt{tL} + \kappa_L}{\log\sqrt{t/L}} \log p,\log p+\kappa_p}\\
+  &\quad   + 
+    \sum_{p > \sqrt{t/L}} |\nu_p(N!/\prod \tuple)|_{0,\log p + \kappa_p}   
+    + \log t + \kappa,
+  \end{align*}
+    then $\nu_2(N!/\prod \tuple) > n_{**}$, $\nu_3(N!/\prod \tuple) > m_{**}$, and furthermore
+  $$
+  \frac{\log(3L)+\kappa_L}{\log t - \log(3L)} \leq \frac{(\nu_2(N!/\prod \tuple)-n_{**}) \log 2}{(\nu_3(N!/\prod \tuple)-m_{**}) \log 3} \leq \frac{\log t - \log(2L)}{\log(2L)+\kappa_L}.
+  $$
+  \end{itemize}
+     Then $t(N) \geq t$.
 \end{proposition}
 
 \begin{proof} Consider all the primes with a positive deficit, that is to say the primes $p$ with a multiplicity of $|\nu_p(N!/\prod \tuple)|_{0,1}$.  If $p$ is one of these primes, we select an element of the tuple that contains $p$ as a factor, and replace it with the least $3$-smooth number $2^{n_p} 3^{n_p}$ larger than $p$, thus increasing this element by a factor of at most $\exp(\kappa_p)$; meanwhile, $\nu_2(N!/\prod \tuple) \log 2 + \nu_3(N!/\prod \tuple) \log 3$ goes down by at most $\log p + \kappa p$.  Performing this for all the primes in deficit, we can clear this deficit at the cost of raising the excess of $\tuple$ by at most $\sum_{p>3} \kappa_p$, and decreasing $\nu_2(N!/\prod \tuple)$, $\nu_3(N!/\prod \tuple)$ by some $n,m$ with $n \log 2 + m \log 3 \leq \sum_p |\nu_p(N!/\prod \tuple)|_{0,\log p+\kappa_p}$.  The hypotheses of \Cref{balance-23'} are now satisfied, and we are done.
 \end{proof}
+
 \begin{thebibliography}{10}
 
 \bibitem{buthe}
