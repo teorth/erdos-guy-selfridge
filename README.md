@@ -59,7 +59,7 @@ Secondary goals are
 | [5 Apr 2025](https://terrytao.wordpress.com/2025/03/26/decomposing-a-factorial-into-large-factors/#comment-687676) | Kevin Ventullo | 2 | $[3 \times 10^5, 10^8$] | Improved greedy 
 | [6 Apr 2025](https://terrytao.wordpress.com/2025/03/26/decomposing-a-factorial-into-large-factors/#comment-687676) | Kevin Ventullo | 2 | $[8 \times 10^4, 3 \times 10^8$] | Improved greedy | Conjecture 1 is now reduced to Conjecture 2
 | [6 Apr 2025](https://terrytao.wordpress.com/2025/03/26/decomposing-a-factorial-into-large-factors/#comment-687695) | Matthieu Rosenfeld | 2 | $[8 \times 10^4, 10^9]$ | Improved greedy
-| [9 Apr 2025](https://github.com/teorth/erdos-guy-selfridge/pull/1) | uhrmar | 3 | $[1,600] \backslash \{155\}$ | Linear programming | LP bound off by one from truth when $N=155$
+| [9 Apr 2025](https://github.com/teorth/erdos-guy-selfridge/pull/1) | uhrmar | 3 | $[1,600]$ | Linear programming (or integer programming for $N=155$)| LP bound is off by one at $N=155$.
 
 ## Data
 
