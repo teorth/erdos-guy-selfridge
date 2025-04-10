@@ -9,18 +9,21 @@ def solve(N,T):
     P = list(sympy.primerange(1, T))
     pi = {p: i+1 for i, p in enumerate(P)}  # Use dictionary for mapping primes to indices
     
-    E = {} # Use dictionary to store exponents of primes in N!
+    E = {}  # Use dictionary to store exponents of primes in N!
+
+    # For each prime, count its exponent in the factorization of N! by examining the prime exponents one at a time. For example, for 20! and p = 2,
+    # we would note that 20 // 2 = 10, 20 // 4 = 5, 20 // 8 = 2, and 20 // 16 = 1, so there must be 10+5+2+1 = 18 factors
     for p in P:
         exponent = 0
         for i in range(1, int(math.log(N, p)) + 1):
             exponent += N // (p**i)
         E[pi[p]] = exponent
 
-    L = []
-    for p in sympy.primerange(T, N + 1):
+    L = []  # Use list to store all factors
+    for p in sympy.primerange(T, N + 1):  # All primes of size >= T can be directly added to the factorization
         L.extend([p] * (N // p))
 
-    i = len(P)
+    i = len(P)  # Number of primes in the range
     minm = 0
     t_start = time.time()
 
@@ -78,9 +81,9 @@ def solve(N,T):
 
     print(f"Tested N={N} against T={T}")
     print(f"Test ran in {t_end - t_start} seconds")
-    if len(L) >= N:  # report success or failure
-        print(f"SUCCESS: factorized {N}! into {len(L)} components")
+    if len(L) >= N:  # Report success or failure
+        print(f"SUCCESS: factorized {N}! into {len(L)} factors of size >={T}")
     else:
-        print(f"FAILURE: factorized {N}! into {len(L)} components")
+        print(f"FAILURE: factorized {N}! into {len(L)} factors of size >={T}")
 
 solve(300000,100000)
