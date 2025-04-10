@@ -74,22 +74,24 @@ def solve(N,T):
 
     t_end = time.time()
 
-    # Confirm that all factors in L are at least T
-    assert all(n >= T for n in L)
-    
-    # Confirm that the product of L evenly divides N!
-    product_L = 1
-    for n in L:
-        product_L *= n
+    # Run assurance tests (can be extremely time intensive)
+    if not skip_tests:
+        # Confirm that all factors in L are at least T
+        assert all(n >= T for n in L)
         
-    factorial_N = math.factorial(N)
+        # Confirm that the product of L evenly divides N!
+        product_L = 1
+        for n in L:  # Note: this computation is by far the most time intensive part
+            product_L *= n
+            
+        factorial_N = math.factorial(N)
 
-    if factorial_N % product_L == 0:
-        is_divisible = True
-    else:
-        is_divisible = False
-        
-    assert is_divisible
+        if factorial_N % product_L == 0:
+            is_divisible = True
+        else:
+            is_divisible = False
+            
+        assert is_divisible
 
     # Report results
     print(f"Tested N={N} against T={T}")
