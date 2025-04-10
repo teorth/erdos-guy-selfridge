@@ -5,7 +5,7 @@ import time
 
 # A greedy algorithm to factorize, adapted from Maple code of Andrew Sutherland. (Thanks to Adam Wagner for help with the code conversion to Python.)
 
-def solve(N,T):
+def solve(N, T, skip_tests=True):
     P = list(sympy.primerange(1, T))
     pi = {p: i+1 for i, p in enumerate(P)}  # Use dictionary for mapping primes to indices
     
@@ -40,6 +40,7 @@ def solve(N,T):
 
         # Search for the smallest m such that m * p >= T
         m = max(math.ceil(T / P[i-1]), minm)
+        divisions = 1
         while m < T:
             F = factorint(m)
 
@@ -50,12 +51,13 @@ def solve(N,T):
             X[i] = X.get(i, 0) + 1  # Increment the exponent of the current prime by 1 (essentially changing to m * p from m)
             
             # Check to make sure that m * p can divide our number evenly. If this condition is met, break the loop
-            valid_m = True
+            divisions = 10**10 # set arbitrarily high to start
             for j in X:
-                if E.get(j, 0) < X[j]:
-                    valid_m = False
+                factor_divisions = E.get(j, 0) // X[j]
+                divisions = min(divisions, factor_divisions)
+                if factor_divisions == 0:
                     break
-            if valid_m:
+            if divisions >= 1: # can divide at least once
                 break
             
             m += 1
@@ -66,11 +68,16 @@ def solve(N,T):
         if m == T:
             break
         
+        # print(f"Found factor {P[i-1] * m}")
+        if P[i-1] * m not in divisors:
+            divisors[P[i-1] * m] = 0
+        divisors[P[i-1] * m] += divisions
+
         # Factor m * p out of our current number
         for j in X:
-            E[j] = E.get(j, 0) - X[j]
+            E[j] = E.get(j, 0) - X[j] * divisions
 
-        L.append(m * P[i-1])
+        L.extend([m * P[i-1]] * divisions)
 
     t_end = time.time()
 
