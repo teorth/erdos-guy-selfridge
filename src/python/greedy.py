@@ -60,7 +60,6 @@ def solve(N,T):
         L.append(m * P[i-1])
 
     t_end = time.time()
-    print(t_end - t_start)
 
     assert all(n >= T for n in L)
     
@@ -77,6 +76,11 @@ def solve(N,T):
         
     assert is_divisible
 
-    print(N, len(L), len(L) >= N)
+    print(f"Tested N={N} against T={T}")
+    print(f"Test ran in {t_end - t_start} seconds")
+    if len(L) >= N:  # report success or failure
+        print(f"SUCCESS: factorized {N}! into {len(L)} components")
+    else:
+        print(f"FAILURE: factorized {N}! into {len(L)} components")
 
 solve(300000,100000)
