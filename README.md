@@ -16,7 +16,7 @@ Here is an extension of that image to $N \leq 200$:
 
 ![Plot of $t(N)$ and comparators for $N \leq 200$](src/python/newplot_200.png)
 
-A view of $80 \leq N \leq 599$ (using a greedy lower bound for $t(N)$):
+A view of $80 \leq N \leq 599$:
 
 ![Plot of $t(N)$ and comparators for $80 \leq N \leq 599$](src/python/newplot_600_all.png)
 
