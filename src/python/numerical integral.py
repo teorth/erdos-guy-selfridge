@@ -25,7 +25,11 @@ for i in range(500000):
         N_new = N
         M_new = M+1
     integral += N * ((-math.log(M) + math.log(b))/b - (-math.log(M) + math.log(a))/a)
-    print(f"The estimate for $c_0$ is {(integral + math.exp(1)/(2*b))/math.e}, after incorporating [{a},{b}].") 
+
+    # We can note that the function we are integrating is lower bounded by 0 and upper bounded by e/2 *(1 + 1/(1 + ex))
+    print(f"After incorporating [{a},{b}], the estimate for $c_0$ is {(integral + math.exp(1)/(2*b))/math.e}.") 
+    print(f"Bounds: [{integral/math.e}, {(integral + (math.exp(1)/b + math.log(1 + math.exp(1)/b))/2)/math.e}]")
+    
     N = N_new
     M = M_new
     a = b
