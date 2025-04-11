@@ -40,9 +40,9 @@ Secondary goals are
 ## Current status
 
 1. Conjecture 1 has been reduced to Conjecture 2; in particular, it has been verified up to $N \leq 2 \times 10^{10}$ and for sufficiently large $N$, and for the remaining $N$ it follows from the corresponding instance of Conjecture 2.
-2. Conjecture 2 is known in the range $8 \times 10^4 \leq N \leq 2 \times 10^{10}$, and for sufficiently large $N$.  The approximation $\frac{t(N)}{N} \approx \frac{1}{e} - \frac{c_0}{\log N}$ suggests (somewhat weakly) that the true threshold is approximately $7 \times 10^3$.
+2. Conjecture 2 is known in the range $43632 \leq N \leq 2 \times 10^{10}$, and for sufficiently large $N$, and fails for $N = 43631$.  Thus, contingent on verifying the conjecture for $N > 2 \times 10^{10}$, the optimal threshold is $43632$.
 3. The OEIS tables have been extended to $N \leq 600$.  For $N \neq 155$, the linear programming method systematically computes all values of $t(N)$ up to $t(600)$; for $N=155$, the bound is off by one, and integer programming methods are needed instead.
-4. Non-rigorous numerics have shown that $c_0 \approx 0.3044$.
+4. Non-rigorous numerics strongly suggest $c_0 \approx 0.30441901087$.  More rigorously, one has $c_0 = 0.304419011 \pm 7 \times 10^{-9}$ (assuming no significant roundoff errors in floating point arithmetic).
 
 ## Timeline 
 
@@ -59,9 +59,18 @@ Secondary goals are
 | [5 Apr 2025](https://terrytao.wordpress.com/2025/03/26/decomposing-a-factorial-into-large-factors/#comment-687676) | Kevin Ventullo | 2 | $[3 \times 10^5, 10^8$] | Improved greedy 
 | [6 Apr 2025](https://terrytao.wordpress.com/2025/03/26/decomposing-a-factorial-into-large-factors/#comment-687676) | Kevin Ventullo | 2 | $[8 \times 10^4, 3 \times 10^8$] | Improved greedy | Conjecture 1 is now reduced to Conjecture 2
 | [6 Apr 2025](https://terrytao.wordpress.com/2025/03/26/decomposing-a-factorial-into-large-factors/#comment-687695) | Matthieu Rosenfeld | 2 | $[8 \times 10^4, 10^9]$ | Improved greedy
-| [9 Apr 2025](https://github.com/teorth/erdos-guy-selfridge/pull/1) | uhrmar | 3 | $[1,600]$ | Linear programming (or integer programming for $N=155$)| LP bound is off by one at $N=155$.
+| [9 Apr 2025](https://github.com/teorth/erdos-guy-selfridge/pull/1) | Uhrmar | 3 | $[1,600]$ | Linear programming (or integer programming for $N=155$)| LP bound is off by one at $N=155$.
 | [11 Apr 2025](https://terrytao.wordpress.com/2025/03/26/decomposing-a-factorial-into-large-factors/comment-page-1/#comment-687728) | Matthieu Rosenfeld | 2 | $[8 \times 10^4, 2 \times 10^{10}]$ | Improved greedy
-| [11 Apr 2025](https://github.com/teorth/erdos-guy-selfridge/pull/5) | plby | 2 | $[43632, 44760]$ | Linear programming | Lower bound suspected to be close to optimal
+| [11 Apr 2025](https://github.com/teorth/erdos-guy-selfridge/pull/5) | plby | 2 | $[43632, 80973]$ | Linear programming | 
+| [11 Apr 2025](https://github.com/teorth/erdos-guy-selfridge/pull/2#issuecomment-2796186186) | Uhrmar | 2 | $\neg 43631$; $[43632,8 \times 10^4]$ | Linear programming | Provisional limit of Conjecture 2 reached 
+
+## Computations of $c_0$
+
+| Date | Contributor | Result | Method | Comments |
+| --- | --- | --- | --- | --- | 
+| [26 Mar 2025](https://arxiv.org/abs/2503.20170v1) | Terence Tao | $c_0 \approx 0.3044$ | Naive Riemann sum | Non-rigorous
+| [11 Apr 2025](https://github.com/teorth/erdos-guy-selfridge/issues/6) | Terence Tao | $c_0 \approx 0.30441901087$ | Exact evaluation of partial integral + heuristic estimate of error | Non-rigorous
+| [11 Apr 2025](https://github.com/teorth/erdos-guy-selfridge/issues/6#issuecomment-2797993853) | Straw17 | $c_0 \in [0.3044190040310339, 0.304419017709828]$| Exact eval. of partial integral + rigorous bound on error | Rigorous (up to rounding errors)
 
 ## Data
 
