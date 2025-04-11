@@ -1,7 +1,7 @@
 import math
 
-# A non-rigorous evaluation of c_0, by explicitly $\floor y \rfloor \log(\lceil y/e \rceil / (y/e)) dy/y^2$ on pieces up to some 
-# threshold $b$, then using e/2b as an estimate for the remainder.
+# A non-rigorous evaluation of c_0, by explicitly computing $\lfloor y \rfloor \log(\lceil y/e \rceil / (y/e)) dy/y^2$ on pieces up to some 
+# threshold $b$, then using e/2b as an estimate for the remainder (the rationale being that for large $y$ one has $\log(\lceil y/e \rceil / (y/e)) \approx \{ y/e\}/(y/e)$, that $\lfloor y \rfloor \approx y$, and $latex \{y/e\}$ is approximately $1/2$ on the average, so that the tail is heuristically $\approx \int_b^\infty y \frac{1}{2} / (y/e) dy/y^2 = e/2b$)
 
 def integrand(x):
     # floor(x) and ceiling of (e*x)
