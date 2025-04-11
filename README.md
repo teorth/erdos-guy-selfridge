@@ -42,7 +42,7 @@ Secondary goals are
 1. Conjecture 1 has been reduced to Conjecture 2; in particular, it has been verified up to $N \leq 2 \times 10^{10}$ and for sufficiently large $N$, and for the remaining $N$ it follows from the corresponding instance of Conjecture 2.
 2. Conjecture 2 is known in the range $43632 \leq N \leq 2 \times 10^{10}$, and for sufficiently large $N$, and fails for $N = 43631$.  Thus, contingent on verifying the conjecture for $N > 2 \times 10^{10}$, the optimal threshold is $43632$.
 3. The OEIS tables have been extended to $N \leq 600$.  For $N \neq 155$, the linear programming method systematically computes all values of $t(N)$ up to $t(600)$; for $N=155$, the bound is off by one, and integer programming methods are needed instead.
-4. Non-rigorous numerics strongly suggest $c_0 \approx 0.30441901087$.  No rigorously validated numerics (e.g., using interval arithmetic) have been performed.
+4. Non-rigorous numerics strongly suggest $c_0 \approx 0.30441901087$.  More rigorously, one has $c_0 = 0.304419011 \pm 7 \times 10^{-9}$ (assuming no significant roundoff errors in floating point arithmetic).
 
 ## Timeline 
 
