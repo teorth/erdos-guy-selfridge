@@ -7,9 +7,9 @@ import time
 
 def solve(N, T, skip_tests=True):
     P = list(sympy.primerange(1, T))
-    pi = {p: i+1 for i, p in enumerate(P)}  # Use dictionary for mapping primes to indices
+    pi = {p: i for i, p in enumerate(P)}  # Use dictionary for mapping primes to indices
     
-    E = {}  # Use dictionary to store exponents of primes in N!
+    E = []  # Use list to store exponents of primes in N!
 
     # For each prime, count its exponent in the factorization of N! by examining the prime exponents one at a time. For example, for 20! and p = 2,
     # we would note that 20 // 2 = 10, 20 // 4 = 5, 20 // 8 = 2, and 20 // 16 = 1, so there must be 10+5+2+1 = 18 factors
@@ -17,13 +17,13 @@ def solve(N, T, skip_tests=True):
         exponent = 0
         for i in range(1, int(math.log(N, p)) + 1):
             exponent += N // (p**i)
-        E[pi[p]] = exponent
+        E.append(exponent)
 
     L = []  # Use list to store all factors
     for p in sympy.primerange(T, N + 1):  # All primes of size >= T can be directly added to the factorization
         L.extend([p] * (N // p))
 
-    i = len(P)  # Current prime to examine (we start with the largest prime in the range)
+    i = len(P)-1  # Current prime to examine (we start with the largest prime in the range)
     minm = 0
     t_start = time.time()
 
@@ -33,13 +33,13 @@ def solve(N, T, skip_tests=True):
     # 3. Factor out m * p and then repeat this algorithm on the resulting number
     while True:
         # If the current prime has an exponent of zero in the factorization, move on to the next-largest prime
-        while i > 0 and E.get(i, 0) == 0:
+        while i >= 0 and E[i] == 0:
             i -= 1
-        if i == 0:
+        if i < 0:
             break
 
         # Search for the smallest m such that m * p >= T
-        m = max(math.ceil(T / P[i-1]), minm)
+        m = max(math.ceil(T / P[i]), minm)
         divisions = 1
         while m < T:
             F = factorint(m)
@@ -53,7 +53,7 @@ def solve(N, T, skip_tests=True):
             # Check to make sure that m * p can divide our number evenly. If this condition is met, break the loop
             divisions = 10**10 # set arbitrarily high to start
             for j in X:
-                factor_divisions = E.get(j, 0) // X[j]
+                factor_divisions = E[j] // X[j]
                 divisions = min(divisions, factor_divisions)
                 if factor_divisions == 0:
                     break
@@ -61,7 +61,7 @@ def solve(N, T, skip_tests=True):
                 break
             
             m += 1
-            if E.get(i,0) >= X.get(i,0):  # On future iterations of the loop, skip every m up to this point 
+            if E[i] >= X.get(i,0):  # On future iterations of the loop, skip every m up to this point 
                 minm = m
 
         # If we have reached our upper limit, then we are done
@@ -70,9 +70,9 @@ def solve(N, T, skip_tests=True):
 
         # Factor m * p out of our current number
         for j in X:
-            E[j] = E.get(j, 0) - X[j] * divisions
+            E[j] = E[j] - X[j] * divisions
 
-        L.extend([m * P[i-1]] * divisions)
+        L.extend([m * P[i]] * divisions)
 
     t_end = time.time()
 
