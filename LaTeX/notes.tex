@@ -164,6 +164,8 @@ To bound the factorial, we have the explicit Stirling approximation \cite{robbin
 \end{equation}
 valid for all natural numbers $N$. 
 
+We use $O_{\leq}(X)$ to denote any quantity whose magnitude is bounded by at most $X$ (note the absence of an additional constant factor).
+
 To estimate the prime counting function, we have the following good asymptotics up to a large height.
 
   \begin{theorem}[Buthe's bounds]\cite{buthe}  For any $2 \leq x \leq 10^{19}$, we have
@@ -173,7 +175,7 @@ To estimate the prime counting function, we have the following good asymptotics 
   \end{theorem}
   
   For $x > 10^{19}$ we have the bounds of Dusart \cite{dusart}.  One such bound is
-  $$ |\psi(x) - x| \leq 59.18 \frac{x}{\log^4 x}.$$
+  $$ \psi(x) = x + O_{\leq}(59.18 \frac{x}{\log^4 x}).$$
 
   
 \section{Criteria for upper bounding \texorpdfstring{$t(N)$}{t(N)}}
@@ -254,20 +256,20 @@ Call a natural number \emph{$3$-smooth} if it is of the form $2^n 3^m$ for some 
 We now describe an algorithm that, for given $1 \leq t \leq N$, either successfully demonstrates that $t(N) \geq t$, or halts with an error.
 
 \begin{enumerate}
-\item Select a natural number $A$ and another parameter $1 \leq K \leq t$.  There is some freedom to select parameters here, but generally speaking one would like to have $\log N \ll A \ll K \ll \sqrt{N}$.
-\item Let $I$ denote the elements of the interval $[t,t(1+3/A)]$ that are coprime to $6$.  Let $\tuple^{(1)}$ be the elements of $I$, each occurring with multiplicity $A$.  This multiset is $t$-admissible, and $\prod \tuple^{(1)}$ is not divisible by tiny primes $2,3$.  (It will however have has approximately the right number of primes for $3 < p \leq t/K$, though it may have quite different prime factorization at primes $p>t/K$.)
-\item Remove any element from $\tuple^{(1)}$ that contains a prime factor $p$ with $p > t/K$, and call this new multiset $\tuple^{(2)}$.  It remains $t$-admissible with no tiny prime factors.
-\item For each $p > t/K$, add in $\nu_p(N!)$ copies of the number $p \lceil t/p \rceil$ to $\tuple^{(2)}$, and call this new multiset $\tuple^{(3)}$.  (A variant of the method: add in $p \lceil t/p \rceil^{\langle 2,3\rangle}$ instead. This is slightly less efficient, but slightly easier to analyze.)  Now $\tuple^{(3)}$ is $t$-admissible and in balance at all primes $p>t/K$, but will typically be in a slight deficit at primes $3 < p \leq t/K$, particularly in the range $3 < p \leq K$.  (It will now also contain a few tiny prime factors, but will generally still have a large surplus at those primes.)
-\item For each prime $3 < p \leq t/K$ at which there is a surplus $\nu_p(N!/\prod \tuple) > 0$, replace $\nu_p(N!/\prod \tuple)$ copies of $p$ in $\tuple^{(3)}$ with $\lceil p \rceil^{\langle 2,3 \rangle}$ instead, and call this new multiset $\tuple^{(4)}$.  Thus $\tuple^{(4)}$ has no surplus at primes $3 < p \leq t/K$ (and is still $t$-admissible and in balance for $p>t/K$).\item For the primes $3 < p \leq t/K$ at which there is a deficit $\nu_p(\prod \tuple/N!) > 0$, multiply all these primes together, and use the greedy algorithm to group them into factors $x_1, \dots, x_M$ in the range
+\item[(0)] Select a natural number $A$ and another parameter $1 \leq K \leq \sqrt{t}$.  There is some freedom to select parameters here, but generally speaking one would like to have $\log N \ll A \ll K \ll \sqrt{t}$.
+\item[(1)] Let $I$ denote the elements of the interval $[t,t(1+3/A)]$ that are coprime to $6$.  Let $\tuple^{(1)}$ be the elements of $I$, each occurring with multiplicity $A$.  This multiset is $t$-admissible, and $\prod \tuple^{(1)}$ is not divisible by tiny primes $2,3$.  (It will however have has approximately the right number of primes for $3 < p \leq t/K$, though it may have quite different prime factorization at primes $p>t/K$.)
+\item[(2)] Remove any element from $\tuple^{(1)}$ that contains a prime factor $p$ with $p > t/K$, and call this new multiset $\tuple^{(2)}$.  It remains $t$-admissible with no tiny prime factors.
+\item[(3)] For each $p > t/K$, add in $\nu_p(N!)$ copies of the number $p \lceil t/p \rceil$ to $\tuple^{(2)}$, and call this new multiset $\tuple^{(3)}$.  (A variant of the method: add in $p \lceil t/p \rceil^{\langle 2,3\rangle}$ instead. This is slightly less efficient, but slightly easier to analyze.)  Now $\tuple^{(3)}$ is $t$-admissible and in balance at all primes $p>t/K$, but will typically be in a slight deficit at primes $3 < p \leq t/K$, particularly in the range $3 < p \leq K$.  (It will now also contain a few tiny prime factors, but will generally still have a large surplus at those primes.)
+\item[(4)] For each prime $3 < p \leq t/K$ at which there is a surplus $\nu_p(N!/\prod \tuple) > 0$, replace $\nu_p(N!/\prod \tuple)$ copies of $p$ in $\tuple^{(3)}$ with $\lceil p \rceil^{\langle 2,3 \rangle}$ instead, and call this new multiset $\tuple^{(4)}$.  Thus $\tuple^{(4)}$ has no surplus at primes $3 < p \leq t/K$ (and is still $t$-admissible and in balance for $p>t/K$).
+\item [(5)]For the primes $3 < p \leq t/K$ at which there is a deficit $\nu_p(\prod \tuple/N!) > 0$, multiply all these primes together, and use the greedy algorithm to group them into factors $x_1, \dots, x_M$ in the range
 $(\sqrt{t/K}, t/K]$, together with possibly one exceptional factor $x_*$ in the range $(1, t/K]$.  For each of these factors $x_i$ or $x_*$, add the quantity $x_i \lceil t/x_i \rceil^{\langle 2,3 \rangle}$ or $x_* \lceil t/x_* \rceil^{\langle 2,3 \rangle}$ to $\tuple^{(4)}$, and call this new multiset $\tuple^{(5)}$.  
-\item By construction, $\tuple^{(5)}$ is $t$-admissible and will be in balance at all primes $p>3$, and is thus $N!/\prod \tuple^{(5)}$ is of the form $2^n 3^m$ for some integers $n,m$.  If at least one of $n,m$ is negative, then \texttt{HALT} the algorithm with an error.  Otherwise, $\tuple^{(5)}$ is a subfactorization of $N!$, and we continue on to Step 8.
-\item Select a $3$-smooth number $2^{n_1} 3^{m_1}$ greater than equal to $t$ with $n_1/m_1 \leq n/m$ (which one can interpret as $n_1 m \leq nm_1$ in case some of the denominators here vanish), and similarly select a $3$-smooth number $2^{n_2} 3^{m_2}$ greater than or equal to $t$ with $n_2/m_2 \geq n/m$.  (It is reasonable to select the smallest such $3$-smooth numbers in both cases, although this is not absolutely necessary for the algorithm to be successful.) By construction, we can express $(n,m)$ as a positive linear combination $\alpha_1 (n_1,m_1) + \alpha_2 (n_2,m_2)$ of $(n_1,m_1)$ and $(n_2,m_2)$.  Add $\lfloor \alpha_1 \rfloor$ copies of $2^{n_1} 3^{m_1}$ and $\lfloor \alpha_2 \rfloor$ copies of $2^{n_2} 3^{m_2}$ to $\tuple^{(5)}$, and call this tuple $\tuple^{(6)}$.  (This will largely eliminate the surplus at $2$ and $3$.)
-\item If the multiset $\tuple^{(6)}$ has cardinality less than $N$, \texttt{HALT} the algorithm with an error.  Otherwise, delete elements from $\tuple^{(6)}$ to bring the cardinality to $N$, and arbitrarily distribute any surplus primes to one of the remaining elements, and call the resulting multiset $\tuple^{(7)}$.  By construction, $\tuple^{(7)}$ is a $t$-admissible factorization of $N!$ into $N$ numbers, demonstrating that $t(N) \geq t$.
+\item[(6)] By construction, $\tuple^{(5)}$ is $t$-admissible and will be in balance at all primes $p>3$, and is thus $N!/\prod \tuple^{(5)}$ is of the form $2^n 3^m$ for some integers $n,m$.  If at least one of $n,m$ is negative, then \texttt{HALT} the algorithm with an error.  Otherwise, select a $3$-smooth number $2^{n_1} 3^{m_1}$ greater than equal to $t$ with $n_1/m_1 \leq n/m$ (which one can interpret as $n_1 m \leq nm_1$ in case some of the denominators here vanish), and similarly select a $3$-smooth number $2^{n_2} 3^{m_2}$ greater than or equal to $t$ with $n_2/m_2 \geq n/m$.  (It is reasonable to select the smallest such $3$-smooth numbers in both cases, although this is not absolutely necessary for the algorithm to be successful.) By construction, we can express $(n,m)$ as a positive linear combination $\alpha_1 (n_1,m_1) + \alpha_2 (n_2,m_2)$ of $(n_1,m_1)$ and $(n_2,m_2)$.  Add $\lfloor \alpha_1 \rfloor$ copies of $2^{n_1} 3^{m_1}$ and $\lfloor \alpha_2 \rfloor$ copies of $2^{n_2} 3^{m_2}$ to $\tuple^{(5)}$, and call this tuple $\tuple^{(6)}$.  (This will largely eliminate the surplus at $2$ and $3$.)
+\item[(7)] If the multiset $\tuple^{(6)}$ has cardinality less than $N$, \texttt{HALT} the algorithm with an error.  Otherwise, delete elements from $\tuple^{(6)}$ to bring the cardinality to $N$, and arbitrarily distribute any surplus primes to one of the remaining elements, and call the resulting multiset $\tuple^{(7)}$.  By construction, $\tuple^{(7)}$ is a $t$-admissible factorization of $N!$ into $N$ numbers, demonstrating that $t(N) \geq t$.
 \end{enumerate}
 
-\subsection{Analysis of Step 9}
+\subsection{Analysis of Step 7}
 
-We now analyze the above algorithm, starting from the final step (9) and working backwards to (1), to establish sufficient conditions for the algorithm to successfully demonstrate that $t(N) \geq t$.
+We now analyze the above algorithm, starting from the final step (7) and working backwards to (1), to establish sufficient conditions for the algorithm to successfully demonstrate that $t(N) \geq t$.
 
 It will be convenient to introduce the following notation.
 For $a_+,a_- \in [0,+\infty]$, we define the asymmetric norm $|x|_{a_+,a_-}$ of a real number $x$ by the formula
@@ -293,14 +295,14 @@ $$
 \excess_t(\tuple^{(6)}) + \sum_p \left| \nu_p\left(\frac{N!}{\prod \tuple^{(6)}}\right) \right|_{\log p,\infty}
 \leq \log N! - N \log t.$$
 If we assume that $t = N/e^{1+\delta}$ for some $\delta > 0$, we can use the Stirling approximation \eqref{stirling} to reduce to the sufficient condition
-\begin{equation}\label{step9-cond}
+\begin{equation}\label{step7-cond}
 \excess_t(\tuple^{(6)}) + \sum_p \left| \nu_p\left(\frac{N!}{\prod \tuple^{(6)}}\right) \right|_{\log p,\infty}
 \leq \delta N + \log \sqrt{2\pi N}.
 \end{equation}
 
-\subsection{Analysis of Steps 7, 8}
+\subsection{Analysis of Step 6}
 
-For Steps 7, 8, we will perform a slight modification of the algorithm that is potentially a little weaker, but is easier to analyze. For any $L \geq 1$, let $\kappa_L$ be the least quantity such that
+Now we analyze Step 6. For any $L \geq 1$, let $\kappa_L$ be the least quantity such that
 \begin{equation}\label{kappa-def}  
   x \leq \lceil x \rceil^{\langle 2,3\rangle} \leq \exp(\kappa_L) x 
 \end{equation}
@@ -368,10 +370,10 @@ We shall obtain better estimates on this quantity in Section ???. For now we use
   and the bound \eqref{surplus-bound} follows.
   \end{proof}
   
-We now use this lemma to analyze Steps 7, 8 as follows.
+We now use this lemma to analyze Step 6 as follows.
 
-\begin{proposition}\label{step78-reduce} Let $L \geq 1$.
-  Let $3L < t = N/e^{1+\delta}$ for some $\delta>0$, and let $1 \leq K \leq t$ and $A \geq 1$.  Suppose that the above algorithm with the indicated parameters reaches the end of Step 6 with a multiset $\tuple^{(5)}$ obeying the following hypotheses:
+\begin{proposition}\label{step6-reduce} Let $L \geq 1$.
+  Let $3L < t = N/e^{1+\delta}$ for some $\delta>0$, and let $1 \leq K \leq t$ and $A \geq 1$.  Suppose that the above algorithm with the indicated parameters reaches the end of Step 5 with a multiset $\tuple^{(5)}$ obeying the following hypotheses:
 \begin{itemize}
   \item[(i)] (Small excess and surplus at non-tiny primes)
   \begin{equation}\label{new-balance-3}
@@ -392,13 +394,13 @@ Then $t(N) \geq t$.
   $$ |\nu_2(2^n 3^m/\prod \tuple')|_{\log 2,\infty}
   + |\nu_3(2^n 3^m/\prod \tuple')|_{\log 3,\infty}
    \leq 2(\log t + \kappa_L) \leq 2 \log N$$
-   where we have used \eqref{kl-triv} and the fact that $\log t\leq \log N-1$.    Then $\tuple^{(6)} = \tuple^{(5)} \cup \tuple'$ is another $t$-admissible multiset, and from \eqref{new-balance-3} and the observation that $-2+3\kappa_L \leq \log \sqrt{2\pi}$, we obtain the previously obtained sufficient condition  \eqref{step9-cond}.
+   where we have used \eqref{kl-triv} and the fact that $\log t\leq \log N-1$.    Then $\tuple^{(6)} = \tuple^{(5)} \cup \tuple'$ is another $t$-admissible multiset, and from \eqref{new-balance-3} and the observation that $-2+3\kappa_L \leq \log \sqrt{2\pi}$, we obtain the previously obtained sufficient condition  \eqref{step7-cond}.
   \end{proof}
   
-\subsection{Analysis of Step 6}
+\subsection{Analysis of Step 5}
 
 \begin{proposition}\label{balance-23'}  Let $L \geq 1$.
-  Let $9L < t = N/e^{1+\delta}$ for some $\delta>0$, and let $1 \leq K \leq t$ and $A \geq 1$.  Suppose that the above algorithm with the indicated parameters reaches the end of Step 5 to produce a multiset $\tuple^{(4)}$ obeying the following hypotheses.
+  Let $9L < t = N/e^{1+\delta}$ for some $\delta>0$, and let $1 \leq K \leq t$ and $A \geq 1$.  Suppose that the above algorithm with the indicated parameters reaches the end of Step 4 to produce a multiset $\tuple^{(4)}$ obeying the following hypotheses.
 \begin{itemize}
 \item[(i)] (Small excess and surplus at non-tiny primes)
 \begin{equation}\label{new-balance-4}
@@ -443,12 +445,12 @@ $$ \excess_t(\tuple^{(4)}) + \kappa_K M + \kappa_K$$
 which by \eqref{M-bound} is bounded by
 $$ \excess_t(\tuple^{(4)}) + \sum_{3 < p \leq t/K}
 \left|\nu_p\left(\frac{N!}{\prod \tuple^{(4)}}\right)\right|_{\kappa_K \min(\frac{\log p}{\log\sqrt{t/K}},1),\infty} + \kappa_K.$$
-We conclude that $\tuple^{(5)}$ obeys the hypotheses of \Cref{step78-reduce} (using \eqref{kl-triv} to bound $\kappa_K$ by $\log \sqrt{2\pi}$), and the claim follows.
+We conclude that $\tuple^{(5)}$ obeys the hypotheses of \Cref{step6-reduce} (using \eqref{kl-triv} to bound $\kappa_K$ by $\log \sqrt{2\pi}$), and the claim follows.
 \end{proof}
 
-\subsection{Analysis of Step 5}
+\subsection{Analysis of Step 4}
 
-\begin{proposition}\label{step5-reduce}  Let $L \geq 1$.  Let $9L < t = N/e^{1+\delta}$ for some $\delta>0$, and suppose that the algorithm reaches the end Step 4 to produce a multiset $\tuple^{(3)}$ obeying the following hypotheses:
+\begin{proposition}\label{step4-reduce}  Let $L \geq 1$.  Let $9L < t = N/e^{1+\delta}$ for some $\delta>0$, and suppose that the algorithm reaches the end of Step 3 to produce a multiset $\tuple^{(3)}$ obeying the following hypotheses:
   \begin{itemize}
   \item[(i)] (Small excess and surplus at non-tiny primes) One has
 \begin{equation}\label{new-balance-5}
@@ -484,22 +486,62 @@ The hypotheses of \Cref{balance-23'} are now satisfied, and we are done.
 \end{proof}
 
 
+\subsection{Analysis of Steps 1,2,3}
+
+To apply 
+\Cref{step5-reduce}, we now compute the various statistics of ${\mathcal B}^{(3)}$ produced by Steps 1-3.
+
+We begin with the analysis of $\tuple^{(1)}$, constructed in Step 2 of the algorithm.  To count elements coprime to $6$, we have the following lemma:
+
+\begin{lemma}\label{lit}  For any interval $[a,b]$ with $0 \leq a \leq b$, the number of natural numbers in the interval that are coprime to $6$ is $\frac{b-a}{3} + O_{\leq}(4/3)$.
+\end{lemma}
+
+\begin{proof}  By the triangle inequality, it suffices to show that the number of natural numbers coprime to $6$ in $[0,a]$, minus $a/3$, is $O_{\leq}(2/3)$.  The claim is easily verified for $0 \leq a \leq 6$, and the quantity in question is $6$-periodic in $a$, giving the claim.
+\end{proof}
+
+The excess of $\tuple^{(1)}$ is clearly given by
+$$ \excess_t(\tuple^{(1)}) = A \sum_{n \in I} \log \frac{n}{t}.$$
+By the fundamental theorem of calculus, this is
+$$ A \int_0^{3t/A} |I \cap [t, t+h]|\ \frac{dh}{t+h}.$$
+Bounding $\frac{1}{t+h}$ by $\frac{1}{t}$ and applying \Cref{lit}, we conclude that
+\begin{equation}\label{excess1-bound}
+ \excess_t(\tuple^{(1)}) \leq A \int_0^{3t/A} \left(h + \frac{4}{3}\right) \frac{dh}{t} = \frac{9t}{2A} + 4.
+\end{equation}
+Next, we compute $p$-valuations $\nu_p(\tuple^{(1)})$.  By construction, this quantity vanishes at tiny primes $p=2,3$.  For $p>3$, we can use \Cref{lit} again to conclude
+\begin{align*}
+  \nu_p(\tuple^{(1)}) &= A \sum_{1 \leq j \leq \frac{\log N}{\log p}} |I \cap p^j \Z| \\
+  &= A \sum_{1 \leq j \leq \frac{\log N}{\log p}} \left(\frac{t}{p^j A} + O_{\leq}(4/3)\right) \\
+  &= \frac{t}{p-1} + O_{\leq}\left(\frac{3t}{N(p-1)}\right)
+  + O_{\leq}\left(\frac{4A}{3} \left\lceil \frac{\log N}{\log p}  \right\rceil\right) \\
+  &= \frac{t}{p-1} +
+  + O_{\leq}\left(\frac{4A+1}{3} \left\lceil \frac{\log N}{\log p}  \right\rceil\right) 
+\end{align*}
+since $\frac{3t}{N(p-1)} \leq \frac{3}{4e} \leq \frac{1}{3}$.
+Meanwhile, from \eqref{legendre} one has
+$$ \nu_p(N!) = \frac{t}{p-1} + O_{\leq}\left(\left\lceil \frac{\log N}{\log p}  \right\rceil\right)$$
+and thus
+\begin{equation}\label{nup} 
+  \nu_p(N!/\tuple^{(1)}) =  
+O_{\leq}\left(\frac{4A+4}{3} \left\lceil \frac{\log N}{\log p}  \right\rceil\right).
+\end{equation}
+
+Now we pass to $\tuple^{(2)}$ by performing Step 3 of the algorithm.  Removing elements from a $t$-admissible multiset cannot increase the $t$-excess, so from \eqref{excess1-bound} we have
+\begin{equation}\label{excess2-bound} 
+  \excess_t(\tuple^{(2)}) \leq \frac{9t}{2A} + 4.
+\end{equation}
+The elements removed are of the form $pm$ with $m \leq K(1+\frac{3}{A})$ coprime to $6$, and $p$ in the interval $[\frac{t}{m}, \frac{t}{m}(1+\frac{3}{A})]$ and greater than $t/K$.  We conclude that
+$$ \nu_p( \tuple^{(2)} ) = \nu_p( \tuple^{(1)})$$
+for $K(1+\frac{3}{A}) < p \leq t/K$.  For $3 < p < K(1+\frac{3}{K})$ one has
+$$ \nu_p( \tuple^{(2)} ) = \nu_p(\tuple^{(1)}) - A \sum_{m \leq K(1+\frac{3}{A})} \nu_p(m) ...$$
+
+
+
 
 
 
 \section{Powers of 2 and 3}\label{power-sec}
 
-
-
-For any $x \geq 1$, let $\lceil x \rceil^{\langle 2\rangle}$ denote the least $2$-smooth number which is greater than equal to $x$.  Since the $2$-smooth numbers are just the powers of two, we have the explicit formula
-$$\lceil x \rceil^{\langle 2\rangle} = 2^{\lceil \log x/\log 2 \rceil}$$
-as well as the bounds
-$$ x \leq \lceil x \rceil^{\langle 2\rangle}  < 2x.$$
-Similarly, let $\lceil x \rceil^{\langle 2,3\rangle}$ denote the least $3$-smooth number which is greater than equal to $x$.  We clearly inherit the previous bound,
-$$ x \leq \lceil x \rceil^{\langle 2,3\rangle}  < 2x,$$
-but now expect to do better.  To quantify this, define $\kappa_L$ for each $L > 1$ to be the least quantity such that
-...
-for all $x \geq L$.  Then $\kappa_L$ is a non-increasing function of $L$ with $\kappa_1 = \log 2$.  The following lemma gives improved control on $\kappa_L$ for large $L$:
+We now obtain good bounds on the quantity $\kappa_L$.  Clearly $\kappa_L$ is a non-increasing function of $L$ with $\kappa_1 = \log 2$.  The following lemma gives improved control on $\kappa_L$ for large $L$:
 
 \begin{lemma}\label{lemcount-0}  If $n_1,n_2,m_1,m_2$ are natural numbers such that $n_1+n_2, m_1+m_2 \geq 1$ and
 $$ 1 \leq \frac{3^{m_1}}{2^{n_1}}, \frac{2^{n_2}}{3^{m_2}}$$
@@ -607,7 +649,7 @@ and
 $$ K \coloneqq \log^3 N.$$
 
 Let $I$ denote the integers in the interval $[t, t+3t/A]$ that are coprime to $6$, and let $\tuple$ be the tuple consisting of these integers, each appearing with multiplicity $A$.  This tuple is $t$-admissible, and the $t$-excess can be estimated as
-$$ \\excess_t(\tuple) \leq |\tuple| \log(1+3/A) \ll A \frac{t}{A} \frac{1}{A} \ll \frac{N}{\log^2 N}$$
+$$ \excess_t(\tuple) \leq |\tuple| \log(1+3/A) \ll A \frac{t}{A} \frac{1}{A} \ll \frac{N}{\log^2 N}$$
 by choice of $A$.  As none of the elements of $\tuple$ are divisible by tiny primes, we have a considerable surplus at those primes.  Indeed, from \eqref{legendre} we have
 $$ \nu_p(N!/\prod \tuple) = \nu_p(N!) = \frac{N}{p-1} - O(\log N)$$
 for the tiny primes $p=2,3$.
