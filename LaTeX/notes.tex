@@ -218,6 +218,43 @@ contradicting \eqref{hyp}.
 
 This bound is sharp for all $N \leq 600$, with the exception of $N=155$, where it gives the upper bound $t(155) \leq 46$.  A more precise integer program gives $t(155) = 45$.
 
+\begin{remark}\label{lp-rem} A variant of the linear programming method also gives good lower bound constructions. Specifically, one can use linear programming to find non-negative real numbers $m_j$ for $t \leq j \leq N$ that maximize the quantity $\sum_{t \leq j \leq N} m_j$ subject to the constraints
+  $$ \sum_{t \leq j \leq N} m_j \nu_p(j) \leq \nu_p(N!).$$
+The expression $\prod_{t \leq j \leq N} j^{\lfloor m_j\rfloor}$ will then be a subfactorization of $N!$ into $\sum_{t \leq j \leq N} \lfloor m_j \rfloor$ factors $j$, each of which is at least $t$. If $\sum_{t \leq j \leq N} \lfloor m_j \rfloor \geq N$, this demonstrates that $t(N) \geq t$.  Numerically, this procedure attains the exact value of $t(N)$ for all $N \leq 600$; for instance for $N=155$, it shows that $t(155) \geq 45$.
+\end{remark}
+
+\subsection{Asymptotic analysis of upper bound}
+
+We refine the upper bound in \cite{tao} slightly.
+
+\begin{proposition}  For large $N$, one has
+$$ \frac{t(N)}{N} \leq \frac{1}{e} - \frac{c_0}{\log N} + O\left( \frac{1}{\log^2 N} \right).$$
+\end{proposition}
+
+\begin{proof}  We apply \Cref{upper-crit} with
+  $$ t \coloneqq \frac{1}{e} - \frac{c_0}{\log N} + \frac{C_0}{\log^2 N}$$
+with $C_0$ a large absolute constant to be chosen later.  From the Stirling approximation one sees that
+$$ \log N! - N \log t \geq c_0 \frac{N}{\log N} + (C_0-O(1)) \frac{N}{\log^2 N}$$
+so it will suffice to establish the upper bound
+$$ \sum_{p > \frac{t}{\lfloor\sqrt{t}\rfloor}} \left\lfloor \frac{N}{p} \right\rfloor \log \left( \frac{p}{t} \left\lceil \frac{t}{p} \right\rceil \right) \leq c_0 \frac{N}{\log N} + O\left( \frac{N}{\log^2 N} \right).$$
+For $N$ large enough, we have $\frac{t}{\lfloor\sqrt{t}\rfloor} \leq \frac{N}{\log N}$, so it suffices to show that
+$$ \sum_{\frac{N}{\log N} \leq p \leq N} \left\lfloor \frac{N}{p} \right\rfloor \log \left( \frac{p}{t} \left\lceil \frac{t}{p} \right\rceil \right) \leq c_0 \frac{N}{\log N} + O\left( \frac{N}{\log^2 N} \right).$$
+The summand is a piecewise monotone function of $p$, with $O(\log N)$ pieces, and bounded in size by $O(N)$.  A routine application of the prime number theorem (with classical error term) and summation by parts then allows one to express the left-hand side as
+$$ \int_{N/\log N}^N \left\lfloor \frac{N}{x} \right\rfloor \log \left( \frac{x}{t} \left\lceil \frac{t}{x} \right\rceil \right) \frac{dx}{\log x} + O\left( \frac{N}{\log^{10} N} \right)$$
+(say). We use the approximation 
+$$\frac{1}{\log x} = \frac{1}{\log N} + O\left( \frac{\log (N/x)}{\log^2 N} \right).$$ 
+To control the error term, we observe from Taylor expansion that
+\begin{equation}\label{tax} 
+\log \left( \frac{x}{t} \left\lceil \frac{t}{x} \right\rceil \right)
+\ll \frac{\{ t/x \}}{t/x} \ll \frac{x}{t}
+\end{equation}
+and the contribution of the error term is
+$$ \ll \int_{N/\log N}^N \frac{N}{x} \frac{x}{t} \frac{\log (N/x)}{\log^2 N} \ll \frac{N}{\log^2 N}$$
+which is acceptable.  As for the main term, we see from \eqref{tax} that we can complete the integral to
+$$ \int_0^N \left\lfloor \frac{N}{x} \right\rfloor \log \left( \frac{x}{t} \left\lceil \frac{t}{x} \right\rceil \right) \frac{dx}{\log N}$$
+up to an acceptable error of $O(N/\log^2 N)$.  But this expression rescales to $c_0 \frac{N}{\log N}$, giving the claim.
+\end{proof}
+
 
 
 \section{A general factorization algorithm}
@@ -636,14 +673,11 @@ It seems reasonable to conjecture that $c$ can be taken to be arbitrarily close 
 
 \section{Asymptotic evaluation of $t(N)$}
 
-In this section we establish the asymptotic
-$$ \frac{t}{N} = \frac{1}{e} - \frac{c_0}{\log N} + O(\log^{1-c} N)$$
+In this section we establish the lower bound
+$$ \frac{t}{N} \geq \frac{1}{e} - \frac{c_0}{\log N} - O(\log^{1-c} N)$$
 for some absolute constant $c>0$.
 
-We begin with the upper bound.  
-...
-
-Now we establish the lower bound.  Let $N$ be sufficiently large.  We introduce parameters
+Let $N$ be sufficiently large.  We introduce parameters
 $$ A \coloneqq \lfloor \log^2 N \rfloor$$
 and
 $$ K \coloneqq \log^3 N.$$

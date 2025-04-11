@@ -15,7 +15,7 @@ a = 1
 N = 1
 M = 1
 
-for i in range(5000):
+for i in range(500000):
     if N+1 < math.e * M:
         b = N+1
         N_new = N+1
@@ -25,7 +25,7 @@ for i in range(5000):
         N_new = N
         M_new = M+1
     integral += N * ((-math.log(M) + math.log(b))/b - (-math.log(M) + math.log(a))/a)
-    print(f"After incorporating [{a},{b}], the estimate for $c_0$ is {(integral + math.exp(1)/(2*b))/math.e}.") 
+    print(f"The estimate for $c_0$ is {(integral + math.exp(1)/(2*b))/math.e}, after incorporating [{a},{b}].") 
     N = N_new
     M = M_new
     a = b
