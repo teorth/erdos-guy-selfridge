@@ -1082,7 +1082,7 @@ We can now prove the upper bound portion of \Cref{main}(iv):
     $$ \frac{t(N)}{N} \leq \frac{1}{e} - \frac{c_0}{\log N} - \frac{c_1 + o(1)}{\log^2 N}$$
     where $c_0$ is given by \eqref{c0-def} and $c_1$ is given by
     \begin{align}
-      c'_1 &\coloneqq \frac{1}{e} \int_0^1 f_e(x) \log \frac{1}{x}\ dx = 0.3702015\dots \label{c1p-def}\\
+      c'_1 &\coloneqq \frac{1}{e} \int_0^1 f_e(x) \log \frac{1}{x}\ dx = 0.3702051\dots \label{c1p-def}\\
       c''_1 &\coloneqq \sum_{k=1}^\infty \frac{1}{k}  \log\left( \frac{e}{k} \left\lceil \frac{k}{e} \right\rceil \right) = 1.679578996\dots\label{c1pp-def}\\
       c_1 &\coloneqq c'_1 + c_0 c''_1 - ec_0^2/2 =0.75554808\dots.\label{c1-def}
     \end{align}
@@ -1131,13 +1131,13 @@ From \eqref{c0-def}, \eqref{falpha-bound} we have
 $$ \int_{1/\log^2 N}^1 \left\lfloor \frac{1}{x} \right\rfloor \log\left(ex \left\lceil \frac{1}{ex} \right\rceil \right) = ec_0 - \frac{o(1)}{\log N},$$
 so it suffices to show that
 $$
-\int_{1/log^2 N}^{N/et}
-\left(\left\lfloor \frac{N/et}{x} \right\rfloor - \left\lfloor \frac{1}{x} \right\rfloor\right) \log\left(ex \left\lceil \frac{1}{ex} \right\rceil \right)\ dx \geq \frac{ec_0 c'' - e\eps + o(1)}{\log N}.$$
+\int_{1/\log^2 N}^{N/et}
+\left(\left\lfloor \frac{N/et}{x} \right\rfloor - \left\lfloor \frac{1}{x} \right\rfloor\right) \log\left(ex \left\lceil \frac{1}{ex} \right\rceil \right)\ dx \geq \frac{ec_0 c''_1 - e\eps + o(1)}{\log N}.$$
 Let $K$ be sufficiently large depending on $\eps$, then for $N$ sufficiently large depending on $K$ we can lower bound the left-hand side by
 $$ \sum_{k=1}^K \int_{1/k}^{N/etk} \log\left(ex \left\lceil \frac{1}{ex} \right\rceil \right)\ dx;$$
 since $\frac{N}{etk} = \frac{1}{k} + \frac{ec_0}{k \log N}$, we can lower bound this (using the irrationality of $e$) by
 $$ \frac{ec_0+o(1)}{\log N} \sum_{k=1}^K \frac{1}{k} \log\left(\frac{e}{k} \left\lceil \frac{k}{e} \right\rceil\right)$$
-for sufficiently large $N$.  Since the sum here can be made arbitrarily close to $c''_0$ by increasing $K$, we obtain the claim.
+for sufficiently large $N$.  Since the sum here can be made arbitrarily close to $c''_1$ by increasing $K$, we obtain the claim.
 \end{proof}
 
 We can now establish \Cref{main}(i):
@@ -2472,7 +2472,7 @@ $$ |S_{n,K}| \leq \frac{2}{|e^{-2\pi i n/e}-1| (K+1)^2} = \frac{1}{(K+1)^2 \sin(
 Because the irrationality measure of $e$ is $2$, this will give error terms of the shape $O(\log K/K^2)$ if one sets $N \approx K / \log K$.  Setting for instance $K = 10^6$, $N = 10^5$, an interval arithmetic computation then gives
 $$c''_1 = 1.679578996\dots$$
 and thus by \eqref{c1-def} we have
-$$ c_1 = 0.7554808\dots.$$
+$$ c_1 = 0.75554808\dots.$$
 This concludes our discussion of the numerical estimation of $c_0, c'_1, c''_1, c_1$.
 
 
