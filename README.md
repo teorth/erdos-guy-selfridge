@@ -2,7 +2,7 @@
 
 For a natural number $N$, let $t(N)$ be the largest number such that $N!$ can be factored into $N$ integer factors, each of which is at least $t(N)$.  It is known that $\frac{1}{e} - \frac{c_0+O(\log^{-c} N)}{\log N} \leq \frac{t(N)}{N} \leq \frac{1}{e} - \frac{c_0}{\log N} -\frac{c_1+o(1)}{\log^2 N}$,
 where $c_0 := \frac{1}{e} \int_0^1 \left \lfloor \frac{1}{x} \right\rfloor \log \left( ex \left \lceil \frac{1}{ex} \right\rceil \right)\ dx = 0.304419010\dots,$
-answering a question of [Erdős and Graham](https://www.erdosproblems.com/391).  Here $c_1$ is the explicit constant $c_1 := c^\prime_1 + c_0 {c_1}^{\prime\prime} - ec_0^2/2 = 0.75554808\dots$, where ${c_1}^\prime := \frac{1}{e} \int_0^1 \left \lfloor \frac{1}{x} \right\rfloor \log \left( ex \left \lceil \frac{1}{ex} \right\rceil \right) \log \frac{1}{x}\ dx = 0.3702051\dots$ and ${c_1}^{\prime\prime} :=  \sum_{k=1}^\infty \frac{1}{k}  \log\left( \frac{e}{k} \left\lceil \frac{k}{e} \right\rceil \right) = 1.679587996\dots$. 
+answering a question of [Erdős and Graham](https://www.erdosproblems.com/391).  Here $c_1$ is the explicit constant $c_1 := c^\prime_1 + c_0 {c_1}^{\prime\prime} - ec_0^2/2 = 0.75554808\dots$, where ${c_1}^\prime := \frac{1}{e} \int_0^1 \left \lfloor \frac{1}{x} \right\rfloor \log \left( ex \left \lceil \frac{1}{ex} \right\rceil \right) \log \frac{1}{x}\ dx = 0.3702051\dots$ and ${c_1}^{\prime\prime} :=  \sum_{k=1}^\infty \frac{1}{k}  \log\left( \frac{e}{k} \left\lceil \frac{k}{e} \right\rceil \right) = 1.679578996\dots`.
 
 Here is a graph of the integral defining $c_0$:
 
@@ -116,5 +116,4 @@ Secondary goals are
 - "[Decomposing a factorial into large factors](https://terrytao.wordpress.com/2025/03/26/decomposing-a-factorial-into-large-factors/)", blog post, Terence Tao, 26 March 2025.
 - [Decomposing a factorial into large factors](https://arxiv.org/abs/2503.20170), arXiv preprint v2, Terence Tao, 28 March 2025.
 - [Notes on criteria for bounding t(N)](https://github.com/teorth/erdos-guy-selfridge/blob/main/LaTeX/notes.pdf)
-
 
