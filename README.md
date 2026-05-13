@@ -44,6 +44,25 @@ Secondary goals are
 3. The OEIS tables have been extended to $N \leq 10000$ by the linear programming method (combined with integer programming to handle a few rare cases where the linear programming bounds are not tight).
 4. Using interval arithmetic and rigorous error bounds, one has $c_0 = 0.304419010\dots$ and $c_1 = 0.75554808\dots$.Non-rigorous heuristic calculations predict that $c_0 \approx 0.30441901087$.  
 
+## Repository roadmap
+
+The main parts of the repository are as follows.
+
+| Path | Contents |
+| --- | --- |
+| [`LaTeX/`](LaTeX/) | LaTeX source for the paper, figures, and the current PDF. |
+| [`Data/`](Data/) | Data files used in the README and paper. |
+| [`Data/factorizations/`](Data/factorizations/) | Factorization certificates, with notes on how to check them. |
+| [`Data/oeis_results/`](Data/oeis_results/) | Factorization data supporting the extended OEIS computations. |
+| [`Data/rearrange/`](Data/rearrange/) | Data for computations using restricted prime rearrangements. |
+| [`src/fastegs/`](src/fastegs/) | Fast greedy code, hint files, and verification scripts for large ranges of `N`. |
+| [`src/linprog/`](src/linprog/) | Linear and integer programming code for upper and lower bounds. |
+| [`src/rearrange/`](src/rearrange/) | Code for small-prime rearrangement computations. |
+| [`src/dnup/`](src/dnup/) | Exact verification scripts for the down-reorganize-up arguments. |
+| [`src/mojo/`](src/mojo/) | Mojo implementation of the `smoothfac` computation. |
+| [`src/python/`](src/python/) | Python scripts for figures, interval computations, verification, and older experiments. |
+| [`src/from_medium_to_large/`](src/from_medium_to_large/) | C++ code and output for medium-to-large range computations. |
+
 ## Timeline on controlling $t(N)$
 
 | Date | Contributor | Goal | $N$ | Method | Comments |
