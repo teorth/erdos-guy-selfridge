@@ -134,7 +134,7 @@ def main(N: int, T: int, filename: Optional[str], lp_filename: Optional[str]):
     for j in range(T, N+1):
         if f[j] <= 0:
             continue
-        assert f[i] > 1
+        assert f[j] > 1
         cj = gp.Column()
         for (i, fij) in coliter(f, j):
             cj.addTerms(fij, row[i])
