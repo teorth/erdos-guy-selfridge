@@ -220,7 +220,7 @@ def delta1_upper(t,N,A,delta):
     return delta1
 
 # (7.7), Lemma 2.2
-def delta2_upper(t,N,delta):
+def delta2_upper(t,N,K,delta):
     delta2 = f_integ(N/t, t/(N*K)) / math.log(t/K)
     delta2 += total_variation(N/t, t/(N*K)) * E(N) / (N * math.log(t/K))
     # print(f"Upper bound on delta_2: {delta2} ({delta2 / delta * 100:.4f}% of delta)")
