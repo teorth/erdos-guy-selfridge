@@ -202,15 +202,23 @@
 \address{UVA Department of Mathematics, Charlottesville, VA 22903.}
 \email{auj4kq@virginia.edu}
 
+\author[Hofer]{Benedikt Johannes Hofer}
+\address{Unaffiliated, Ruhstorf an der Rott, Germany.}
+\email{benedikt.johannes.hofer@gmail.com}
+
+\author[Nordler]{Maximilian Nordler}
+\address{KTH Royal Institute of Technology, Stockholm, Sweden.}
+\email{max@nordler.se}
+
 \author[Rosenfeld]{Matthieu Rosenfeld}
 \address{LIRMM, Univ Montpellier, CNRS, Montpellier, France.}
 \email{matthieu.rosenfeld@umontpellier.fr}
 
-\author[Sutherland]{Andrew V. Sutherland}
+\author[Sutherland]{\\Andrew V. Sutherland}
 \address{MIT Department of Mathematics, Cambridge, MA 02139.}
 \email{drew@math.mit.edu}
 
-\author[Tao]{\\Terence Tao}
+\author[Tao]{Terence Tao}
 \address{UCLA Department of Mathematics, Los Angeles, CA 90095-1555.}
 \email{tao@math.ucla.edu}
 
@@ -437,6 +445,8 @@ This project was initially conceived as a single-author manuscript by Terence Ta
 \begin{itemize}
 \item Boris Alexeev: Formal Analysis, Investigation, Methodology, Software, Validation, Writing -- review \& editing.
 \item Evan Conway: Formal Analysis, Investigation, Software.
+\item Benedikt Johannes Hofer: Investigation, Software, Validation.
+\item Maximilian Nordler: Investigation, Validation.
 \item Matthieu Rosenfeld: Software.
 \item Andrew V. Sutherland: Formal Analysis, Investigation, Methodology, Software, Validation, Writing -- review \& editing.
 \item Terence Tao: Conceptualization, Formal Analysis, Methodology, Project Administration, Visualization, Writing -- original draft, Writing -- review \& editing.
@@ -607,7 +617,7 @@ and the lower bound
 \end{equation}
 and the lower bound
 \begin{equation}\label{bv-lower}
-  \sum_{y < p \leq x} b(p) \leq \frac{1-\frac{2}{\sqrt{y}}}{\log x} \int_y^x b(t)\ dt - \|b\|_{\mathrm{TV}^*(y,x]} \frac{E(x)}{\log x}.
+  \sum_{y < p \leq x} b(p) \geq \frac{1-\frac{2}{\sqrt{y}}}{\log x} \int_y^x b(t)\ dt - \|b\|_{\mathrm{TV}^*(y,x]} \frac{E(x)}{\log x}.
 \end{equation}
 \end{itemize}
 One can replace all occurrences of $E(x)$ here by the classical error term $O(x \exp(-c \sqrt{\log x}))$ for some absolute constant $c>0$ (in which case the $\frac{2}{\sqrt{t}}$ type terms can be absorbed into the error term).
