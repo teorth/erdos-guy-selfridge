@@ -344,7 +344,7 @@ def evaluate(t, N, A, K, L):
 
     delta = delta_lower(t, N)
     delta1 = delta1_upper(t, N, A, delta)
-    delta2 = delta2_upper(t, N, delta)
+    delta2 = delta2_upper(t, N, K, delta)
     delta3 = delta3_upper(t, N, A, K, delta)
     delta4 = delta4_upper(t, N, A, K, sigma, delta)
     delta5 = delta5_upper(t, N, A, K, sigma, delta)
