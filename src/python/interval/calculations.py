@@ -46,14 +46,14 @@ def pi_upper(N):
 
 # Upper bound for pi(x)-pi(y), see (2.19)
 def pixy_upper(y,x):
-    assert N > 1423, "Error: this bound is only valid for N > 1423"
+    assert y > 1423, "Error: this bound is only valid for y > 1423"
     if y > x:
         return 0
     return (x-y)/math.log(y) + 2 * E(x) / math.log(y)
 
 # Lower bound for pi(x)-pi(y), see (2.20)
 def pixy_lower(y,x):
-    assert N > 1423, "Error: this bound is only valid for N > 1423"
+    assert y > 1423, "Error: this bound is only valid for y > 1423"
     if y > x:
         return 0
     return (1-2/math.sqrt(y))*(x-y)/math.log(y) - 2 * E(x) / math.log(x)
@@ -293,7 +293,7 @@ def alpha3_upper(t,N,A,K, kappass):
     return alpha3
 
 # (7.18)
-def alpha4_upper(t,N,K,sigma, kappass):
+def alpha4_upper(t,N,A,K,sigma, kappass):
     alpha4 = 0
     for p in range(K+1, math.floor(K*(1+sigma))+1):
         if is_prime(p):
@@ -344,7 +344,7 @@ def evaluate(t, N, A, K, L):
 
     delta = delta_lower(t, N)
     delta1 = delta1_upper(t, N, A, delta)
-    delta2 = delta2_upper(t, N, delta)
+    delta2 = delta2_upper(t, N, K, delta)
     delta3 = delta3_upper(t, N, A, K, delta)
     delta4 = delta4_upper(t, N, A, K, sigma, delta)
     delta5 = delta5_upper(t, N, A, K, sigma, delta)
@@ -356,7 +356,7 @@ def evaluate(t, N, A, K, L):
     alpha1 = alpha1_upper()
     alpha2 = alpha2_upper(t, N, K, sigma, gamma2, gamma3)
     alpha3 = alpha3_upper(t, N, A, K, kappass)
-    alpha4 = alpha4_upper(t, N, K, sigma, kappass)
+    alpha4 = alpha4_upper(t, N, A, K, sigma, kappass)
     alpha5 = alpha5_upper(t, N, A, K, sigma, kappass)
     alpha6 = alpha6_upper(t, N, kappass)
     alpha7 = alpha7_upper(N, gamma2, gamma3)
