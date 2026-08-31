@@ -35,5 +35,10 @@ for A in np.arange(MIN_A, MAX_A, JUMP_A):
                     best_L = L
                     best_N_exp = N_EXP
                     print(f"New best: N_EXP={N_EXP}, A={A}, K={K}, L={L}")
-            except Exception as e:
+            except AssertionError:
+                # evaluate failed its inequalities — try a smaller N_EXP next.
                 break
+            except Exception as e:
+                # Do not treat programming errors (NameError, TypeError, …) as
+                # "no feasible N" — that silently skips the rest of the sweep.
+                raise
