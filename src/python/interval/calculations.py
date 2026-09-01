@@ -46,17 +46,17 @@ def pi_upper(N):
 
 # Upper bound for pi(x)-pi(y), see (2.19)
 def pixy_upper(y,x):
-    assert N > 1423, "Error: this bound is only valid for N > 1423"
+    assert y > 1423, "Error: this bound is only valid for y > 1423"
     if y > x:
         return 0
-    return (x-y)/math.log(y) + 2 * E(x) / math.log(y)
+    return (x-y)/(2*math.log(y)) + (x-y)/(2*math.log(x)) + 2 * E(x) / math.log(y)
 
 # Lower bound for pi(x)-pi(y), see (2.20)
 def pixy_lower(y,x):
-    assert N > 1423, "Error: this bound is only valid for N > 1423"
+    assert y > 1423, "Error: this bound is only valid for y > 1423"
     if y > x:
         return 0
-    return (1-2/math.sqrt(y))*(x-y)/math.log(y) - 2 * E(x) / math.log(x)
+    return (1-2/math.sqrt(y))*(x-y)/math.log((x+y)/2) - 2 * E(x) / math.log(y)
 
 # See Table 1
 def kappa(L):
