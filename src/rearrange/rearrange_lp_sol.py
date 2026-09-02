@@ -47,7 +47,7 @@ def main(P: int, N: int, T: int, simple_check: bool = False):
 
     # Check prime budgets
     for p in primes:
-        assert budget[p] >= 0, "Prime budget exhausted for prime {p}."
+        assert budget[p] >= 0, f"Prime budget exhausted for prime {p}."
 
     assert len(divided_factors) == len(multiply_factors), f"Unexpected number of factors."
     factors = [divided_factor * multiply_factor for divided_factor, multiply_factor in zip(divided_factors, multiply_factors)]
