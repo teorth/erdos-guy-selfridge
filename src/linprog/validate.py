@@ -1,5 +1,6 @@
 import argparse
 from decimal import Decimal
+from fractions import Fraction
 from math import factorial, prod
 from typing import Dict, List, Tuple
 
@@ -67,8 +68,24 @@ def validate(filename, check_num_factors = False):
             l += 1
     #assert F[0] == factorial(N), f"{F[0]}, {factorial(N)}"
     assert F[0] == factorial(N)
-    # validate certificate
-    print(f"upper bound: {sum(FC[i]*ai for (i, ai) in A)}")
+    # The dual bounds factorizations using factors in [T, N].  Check its
+    # constraints exactly before reporting a bound; Decimal arithmetic would
+    # otherwise round long certificate coefficients in the current context.
+    if A:
+        weights = {}
+        for i, ai in A:
+            if i not in FC or i in weights or not ai.is_finite() or ai < 0:
+                raise ValueError(f"Invalid certificate coefficient: {i} {ai}")
+            weights[i] = Fraction(ai)
+        for j in range(T, N + 1):
+            value = sum(weights.get(i, Fraction(0)) * count for i, count in FF[j].items())
+            if value < 1:
+                raise ValueError(f"Certificate constraint fails for factor {j}: {value} < 1")
+        bound = sum(FC[i] * ai for i, ai in weights.items())
+        print(f"LP upper bound: {bound} (factors {T}..{N})")
+    else:
+        # smoothfac.py deliberately writes an empty CERTIFICATE section.
+        print("No upper-bound certificate supplied.")
     print("Valid!")
 
 
