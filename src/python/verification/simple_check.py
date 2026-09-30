@@ -57,7 +57,7 @@ N, F, M, *factors = integers
 if subfactorization:
     assert len(factors) >= F, f"Expected >={F} factors, but received {len(factors)} factors instead."
 else:
-    assert len(factors) == F, f"Expected exacty {F} factors, but received {len(factors)} factors instead."
+    assert len(factors) == F, f"Expected exactly {F} factors, but received {len(factors)} factors instead."
 
 # Check that each factor is at least M
 for factor in factors:
